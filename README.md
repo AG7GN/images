@@ -1,6 +1,6 @@
 # HOWTO Install the DigiLink+Pulse+FePi+RTC Raspberry Pi Image
 
-Version: 20190710
+Version: 20190718
 
 Author: Steve Magnuson, AG7GN
 
@@ -13,39 +13,38 @@ Author: Steve Magnuson, AG7GN
 - OPTIONAL: Speakers attached to Pi's built-in audio jack if you want to monitor the radio's TX and/or RX on the Pi's speakers
 - Familiarity with the Pi's Terminal application, basic LINUX commands and the use of `sudo`
 
-
-This procedure assumes the operating user is __pi__ and pi's home directory is __/home/pi__ and that user __pi__ has passwordless sudo privileges (the default).  Adjust as necessary if this is not the case.
+This image uses the default configuration for user __pi__:  pi's home directory is __/home/pi__ and user __pi__ has passwordless __sudo__ privileges.  The desktop automatically starts without requiring a password for user __pi__.
 
 ## Changes and Notes
 
 - Uses the latest Debian 10 (Buster) Raspberry Pi OS
-- Fldigi, Flmsg, Flamp, Flarq are installed and minimally configured to enable use with PulseAudio and 2 radios.  You must set your call sign and name in the Fldigi settings.
-- Flrig is installed and configured for use with 2 radios, but it is not visible on the __Hamradio__ menu by default.  See the __Editing the Main Menu__ section for information on customizing the menu.
-- Direwolf is installed and configured for use with PulseAudio and 2 radios.
+- Fldigi, Flmsg, Flamp, Flarq are installed and minimally configured to use PulseAudio and 1 or 2 radios.  You must set your call sign and name, among other things, in the Fldigi and Flmsg settings.
+- Flrig is installed and configured for use with 1 or 2 radios, but it is not visible on the __Hamradio__ menu by default.  See the __Editing the Main Menu__ section for information on customizing the menu.
+- Direwolf is installed and configured for use with PulseAudio with 1 or 2 radios.
 - RMS Gateway software is installed but unconfigured and disabled.  RMS Gateway allows the Pi to be used as a Winlink gateway (requires special Sysop account from winlink.org)
-- Added menu items to toggle on and off TX and RX audio monitoring.  This only works if you have speakers connected to your Pi's built-in audio jack.
+- Added menu items to toggle on and off TX and RX audio monitoring.  This only works if you have speakers connected to your Pi's built-in audio jack or your HDMI monitor has speakers.
 - Added a menu item and GUI to make it easier to install and update various ham applications.
-- Changed Pi configuration to recognize and use a DS3231 Real Time Clock module, if installed.
+- Recognizes and enables a DS3231 Real Time Clock module, if installed.
 - Installed and enabled a script to restart or shutdown the Pi if the DigiLink button is pressed (Rev __DS__ boards only).  If the button is pressed for 2 <= *t* < 5 seconds then released, the Pi will reboot.  If the button is pressed for *t* >= 5 seconds then released, the Pi will shutdown.  Note that the GPIO jumper on the DigiLink board must be installed in the '26' position for this to work.  If you want to use GPIO 13 or 6 instead (by moving the DigiLink GPIO jumper), you can edit the `/usr/local/bin/shutdown_button.py` file and set the `use_button` variable to 13 or 6 respectively.
-- Adjusted PulseAudio configuration to take advantage of PulseAudio running as a [systemd/User](https://wiki.archlinux.org/index.php/Systemd/User) service now (a new feature in Buster).  For those interested in the details, the new way to stop or restart PulseAudio is to run the following in the Terminal (note that `sudo` is not used with these commands):
+- Adjusted PulseAudio configuration to take advantage of PulseAudio running as a [systemd/User](https://wiki.archlinux.org/index.php/Systemd/User) service now (a new feature in Raspbian Buster).  For those interested in the details, the new way to stop or restart PulseAudio is to run the following in the Terminal (note that `sudo` is not used with these commands):
 
 		systemctl --user stop pulseaudio
 		systemctl --user restart pulseaudio
 		
 	As a typical user, you should not have to use these commands.
 - Watchdog service is enabled.  If the Pi locks up, it should automatically reboot within 10 seconds.
+- The __initialize-pi.sh__ script does a more complete job in removing various Fldigi suite personalizations.
 
 ## Installation
 
 1. Assemble the DigiLink board and install it and the Fe-Pi audio board onto the Pi.
-1. [Download the image](https://drive.google.com/open?id=1XJeDUGsgsp8E2pPRP1rOah9VthoWV_pe) from my Google Drive.
-1. Burn the image to your SD card by following the ["Writing an image to the SD card"](https://www.raspberrypi.org/documentation/installation/installing-images/)  instructions.  (Ignore the "Download the image" section on that web page.)
+1. [Download the image](https://drive.google.com/open?id=1GSJn-cxl9z5Pm35Qp75qqbQATwEAuBj5) from my Google Drive.  Click the __Download__ button when prompted with the "Whoops! There was a problem with the preview." window.
+1. Burn the image to your SD card by following the ["Writing an image to the SD card"](https://www.raspberrypi.org/documentation/installation/installing-images/)  instructions.  Since you've already downloaded the image in the previous step, ignore the "Download the image" section on that web page.
 1. Insert the MicroSD card into the Pi and power it on.
-1. Ignore the "CMA_ALLOC" error that appears on the screen at boot-up.  This is a known problem and does not affect operation.  It is fixed in the software update issued 11 July 2019, which you'll apply in the next step.
 
 ## First Time Boot-up Instructions
 
-1. You'll notice the first time you start the Pi with this image that it immediately reboots when the desktop appears.  This is normal behavior and is caused by a script that runs on first boot that resets the VNC and SSH client and server keys among other things.  This happens only at the first boot-up.
+1. You'll notice the first time you start the Pi with this image that it immediately reboots within a few seconds of the desktop appearing.  This is normal behavior and is caused by a script that runs on first boot that resets the VNC and SSH client and server keys among other things.  This happens only at the first boot-up.
 1. Once the desktop appears, open a Terminal window and run this command:
 
 		sudo raspi-config
@@ -55,12 +54,17 @@ This procedure assumes the operating user is __pi__ and pi's home directory is _
 	- Press __Enter__ at the "Root partition has been resized" screen.
 	- Press the __TAB__ key to select __Finish__, then press __ENTER__.
 	- Select __Yes__ to reboot.
-1. Once the desktop appears, open a Terminal window and run these commands:
+1. Once the desktop appears, click __Raspberry > Hamradio > Update Pi and Ham Apps__ and check __Raspbian OS and Apps__, then click OK.  This will download and install the latest OS updates.  Reboot if prompted to do so.
 
-		sudo apt-get update --allow-releaseinfo-change
+	Alternatively, you can open a Terminal window and run these commands:
+
+		sudo apt-get update
 		sudo apt-get upgrade -y
 		
 	Close the terminal window when the commands finish running (type `exit` and press __ENTER__).
+	
+	Both methods are equivalent.
+	
 1. Click __Raspberry > Preferences > Raspberry Pi Configuration__, then click __Change Password__ to set your password.  Click __OK__, and __OK__ again.
 1. Change the Hostname of your Pi as desired.
 1. If the outside edge of the desktop appears cut off on your monitor, Enable __Overscan__.
@@ -70,8 +74,8 @@ This procedure assumes the operating user is __pi__ and pi's home directory is _
 
 ## Update and Install Ham Applications
 
-1. Click __Raspberry > Hamradio > Update Pi and Ham Apps__.  Check the applications you want to update or install and click __OK__.  Some installations take a very long time.  Don't install an application until you understand what the application is for.  *Installing an application does not configure it. Consult the documentation for that application for configuration instructions*.
-1. Checking the __Raspbian OS and Apps__ item in the GUI will check for and install OS updates.  This is equivalent to running the following commands in a Terminal:
+1. Click __Raspberry > Hamradio > Update Pi and Ham Apps__.  Check the applications you want to update or install and click __OK__.  Some installations take a very long time.  Don't install an application unless you understand what the application is for.  __*Installing an application does not configure it. Consult the documentation for that application for configuration instructions*__.
+1. As you already know from the First Time Boot-up Instructions, checking the __Raspbian OS and Apps__ item in the GUI will check for and install OS updates.  This is equivalent to running the following commands in a Terminal:
 
 		sudo apt-get update
 		sudo apt-get upgrade -y
@@ -86,7 +90,7 @@ __WARNING:__ There is a long time bug in the Main Menu Editor that resets the me
 1. Select __Hamradio__ in the left pane.
 1. Check or uncheck the applications listed in the center pane as desired.
 1. Click the __Up__ or __Down__ buttons to move the selected item up or down in the menu list.  Add or remove separators in the menu list as desired.
-1. Note that the __Configure RMS Gateway__ item is not checked and so does not appear in the menu.  If you decide to use this Pi as an RMS Gateway, check this item to enable the configuration GUI for the RMS Gateway.  Note that operating an RMS Gateway requires that you obtain a "Sysop" account at winlink.org.  There are other requirements as well.  If you operate the Pi as an RMS Gateway, I strongly recommend that you don't use that Pi for any other purpose.
+1. Note that the __Configure RMS Gateway__ item is not checked and so does not appear in the menu.  If you decide to use this Pi as an RMS Gateway, check this item to enable the configuration GUI for the RMS Gateway.  Note that operating an RMS Gateway requires that you obtain a "Sysop" account at winlink.org.  There are other requirements as well.  If you operate the Pi as an RMS Gateway, I strongly recommend that you don't use the Pi for any other purpose.
 1. Click __OK__ (*never* click __Cancel__!) when done.
 
 ## Customize the Fldigi Apps
@@ -105,7 +109,8 @@ __IMPORTANT__: While in the __Audio Device Settings__ app, __*DO NOT*__ click th
 1. Click the __Switches__ tab and check the __Capture Attenuate Switch (-6dB)__.
 1. Click the __Capture__ tab.  Adjust the __Capture__ setting so it's about 10% of the way up from the bottom.  Again, click the button with the chain links so you can independently adjust the left channel (left radio) and right channel (right radio) RX levels.
 1. Click __OK__ when done.  
-1. All of these audio settings can be done in a Terminal window as well.  Open a terminal and enter:
+
+	Alternatively, all of these audio settings can be done in a Terminal window as well.  Open a terminal and run:
 
 		alsamixer
 		
