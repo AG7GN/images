@@ -1,6 +1,6 @@
 # HOWTO Install the DigiLink+Pulse+FePi+RTC Raspberry Pi Image
 
-Version: 20190718
+Version: 20190718B
 
 Author: Steve Magnuson, AG7GN
 
@@ -117,4 +117,11 @@ __IMPORTANT__: While in the __Audio Device Settings__ app, __*DO NOT*__ click th
 	Select __Fe-Pi__ as the sound interface and press __F5__ to show both the Capture and Playback settings.
 1. There are PulseAudio controls under __Raspberry > Sound & Video__.  I recommend leaving those settings as-is unless you are very familiar with configuring PulseAudio.
 
+W6AF has published a [guide to setting FM audio levels](https://w6af.com/local-radio-activity/digital-modes/setting-up-sound-levels-for-fm-digital-operation/) that seems to work well.  
+IMPORTANT: W6AF's instructions assume that you have the Fldigi waterfall settings set to default values, which are:
+- Upper signal level (db): 0 
+- Signal range (db): 60
+- Tx level attenuator (db): -3
+
+The above 3 settings are at the bottom of the Fldigi window.
 
