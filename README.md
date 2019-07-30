@@ -15,24 +15,27 @@ Author: Steve Magnuson, AG7GN
 
 This image uses the default configuration for user __pi__:  pi's home directory is __/home/pi__ and user __pi__ has passwordless __sudo__ privileges.  The desktop automatically starts without requiring a password for user __pi__.
 
-## Changes and Notes
+## Notes
 
 - Uses the latest Debian 10 (Buster) Raspberry Pi OS
 - Fldigi, Flmsg, Flamp, Flarq are installed and minimally configured to use PulseAudio and 1 or 2 radios.  You must set your call sign and name, among other things, in the Fldigi and Flmsg settings.
 - Flrig is installed and configured for use with 1 or 2 radios, but it is not visible on the __Hamradio__ menu by default.  See the __Editing the Main Menu__ section for information on customizing the menu.
 - Direwolf is installed and configured for use with PulseAudio with 1 or 2 radios.
-- RMS Gateway software is installed but unconfigured and disabled.  RMS Gateway allows the Pi to be used as a Winlink gateway (requires special Sysop account from winlink.org)
-- Added menu items to toggle on and off TX and RX audio monitoring.  This only works if you have speakers connected to your Pi's built-in audio jack or your HDMI monitor has speakers.
-- Added a menu item and GUI to make it easier to install and update various ham applications.
+- RMS Gateway software is installed but unconfigured and disabled.  RMS Gateway allows the Pi to be used as a Winlink gateway (requires special Sysop account from winlink.org).
+- There are items to toggle on and off TX and RX audio monitoring.  This only works if you have speakers connected to your Pi's built-in audio jack or your HDMI monitor has speakers.
 - Recognizes and enables a DS3231 Real Time Clock module, if installed.
-- Installed and enabled a script to restart or shutdown the Pi if the DigiLink button is pressed (Rev __DS__ boards only).  If the button is pressed for 2 <= *t* < 5 seconds then released, the Pi will reboot.  If the button is pressed for *t* >= 5 seconds then released, the Pi will shutdown.  Note that the GPIO jumper on the DigiLink board must be installed in the '26' position for this to work.  If you want to use GPIO 13 or 6 instead (by moving the DigiLink GPIO jumper), you can edit the `/usr/local/bin/shutdown_button.py` file and set the `use_button` variable to 13 or 6 respectively.
+- A script is installed and enabled to restart or shutdown the Pi if the DigiLink button is pressed (DigiLink Rev __DS__ boards only).  If the button is pressed for 2 <= *t* < 5 seconds then released, the Pi will reboot.  If the button is pressed for *t* >= 5 seconds then released, the Pi will shutdown.  Note that the GPIO jumper on the DigiLink board must be installed in the '26' position for this to work.  If you want to use GPIO 13 or 6 instead (by moving the DigiLink GPIO jumper), you can edit the `/usr/local/bin/shutdown_button.py` file and set the `use_button` variable to 13 or 6 respectively.
+- Watchdog service is enabled.  If the Pi locks up, it should automatically reboot within 10 seconds.
+
+## Changes
+
+- Added a menu item and GUI to make it easier to install and update various ham applications.
 - Adjusted PulseAudio configuration to take advantage of PulseAudio running as a [systemd/User](https://wiki.archlinux.org/index.php/Systemd/User) service now (a new feature in Raspbian Buster).  For those interested in the details, the new way to stop or restart PulseAudio is to run the following in the Terminal (note that `sudo` is not used with these commands):
 
 		systemctl --user stop pulseaudio
 		systemctl --user restart pulseaudio
 		
 	As a typical user, you should not have to use these commands.
-- Watchdog service is enabled.  If the Pi locks up, it should automatically reboot within 10 seconds.
 - The __initialize-pi.sh__ script does a more complete job in removing various Fldigi suite personalizations.
 
 ## Installation
@@ -72,7 +75,7 @@ This image uses the default configuration for user __pi__:  pi's home directory 
 1. Click __Yes__ if prompted to reboot.
 1. Click __Raspberry > Hamradio__ to access the ham applications.
 
-## Update and Install Ham Applications
+## Update OS and Update/Install Ham Applications
 
 1. Click __Raspberry > Hamradio > Update Pi and Ham Apps__.  Check the applications you want to update or install and click __OK__.  Some installations take a very long time.  Don't install an application unless you understand what the application is for.  __*Installing an application does not configure it. Consult the documentation for that application for configuration instructions*__.
 1. As you already know from the First Time Boot-up Instructions, checking the __Raspbian OS and Apps__ item in the GUI will check for and install OS updates.  This is equivalent to running the following commands in a Terminal:
