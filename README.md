@@ -1,6 +1,6 @@
 # HOWTO Install the DigiLink+Pulse+FePi+RTC Raspberry Pi Image
 
-Version: 20190718B
+Version: 20190810
 
 Author: Steve Magnuson, AG7GN
 
@@ -26,28 +26,29 @@ This image uses the default configuration for user __pi__:  pi's home directory 
 - Recognizes and enables a DS3231 Real Time Clock module, if installed.
 - A script is installed and enabled to restart or shutdown the Pi if the DigiLink button is pressed (DigiLink Rev __DS__ boards only).  If the button is pressed for 2 <= *t* < 5 seconds then released, the Pi will reboot.  If the button is pressed for *t* >= 5 seconds then released, the Pi will shutdown.  Note that the GPIO jumper on the DigiLink board must be installed in the '26' position for this to work.  If you want to use GPIO 13 or 6 instead (by moving the DigiLink GPIO jumper), you can edit the `/usr/local/bin/shutdown_button.py` file and set the `use_button` variable to 13 or 6 respectively.
 - Watchdog service is enabled.  If the Pi locks up, it should automatically reboot within 10 seconds.
+- Includes GUI to make it easier to install and update various ham applications.
 
 ## Changes
 
-- Added a menu item and GUI to make it easier to install and update various ham applications.
-- Adjusted PulseAudio configuration to take advantage of PulseAudio running as a [systemd/User](https://wiki.archlinux.org/index.php/Systemd/User) service now (a new feature in Raspbian Buster).  For those interested in the details, the new way to stop or restart PulseAudio is to run the following in the Terminal (note that `sudo` is not used with these commands):
-
-		systemctl --user stop pulseaudio
-		systemctl --user restart pulseaudio
-		
-	As a typical user, you should not have to use these commands.
-- The __initialize-pi.sh__ script does a more complete job in removing various Fldigi suite personalizations.
+- OS and Raspberry Pi application updates.
+- Added screensaver app.  By default, the screensaver is disabled.  To adjust, go to __Raspberry > Preferences > Screensaver__.
+- Added GUI to install/remove/manage Auto-HotSpot. See __Raspberry > Preferences > Manage Auto-HotSpot__.
+- Updated __tnc.sh__ script.
+- Updated __initialize-pi.sh__ script.
+- Updated __Fldigi__, __Flmsg__ and __Flrig__.
+- Updated __iptables__ firewall rules.
+- Updated __710.sh__ script (provides command line radio control for Kenwood TM-V71A and TM-D710G radios).
 
 ## Installation
 
 1. Assemble the DigiLink board and install it and the Fe-Pi audio board onto the Pi.
-1. [Download the image](https://drive.google.com/open?id=1GSJn-cxl9z5Pm35Qp75qqbQATwEAuBj5) from my Google Drive.  Click the __Download__ button when prompted with the "Whoops! There was a problem with the preview." window.
+1. [Download the image](https://drive.google.com/open?id=1EXXoKU0tRB-_dRrn3ndHDmkyGUySOOsI) from my Google Drive.  Click the __Download__ button when prompted with the "Whoops! There was a problem with the preview." window.
 1. Burn the image to your SD card by following the ["Writing an image to the SD card"](https://www.raspberrypi.org/documentation/installation/installing-images/)  instructions.  Since you've already downloaded the image in the previous step, ignore the "Download the image" section on that web page.
 1. Insert the MicroSD card into the Pi and power it on.
 
 ## First Time Boot-up Instructions
 
-1. You'll notice the first time you start the Pi with this image that it immediately reboots within a few seconds of the desktop appearing.  This is normal behavior and is caused by a script that runs on first boot that resets the VNC and SSH client and server keys among other things.  This happens only at the first boot-up.
+1. You'll notice the first time you start the Pi with this image that it immediately reboots within a few seconds of the desktop appearing.  This is expected behavior and is caused by a script that runs on first boot that resets the VNC and SSH client and server keys among other things.  This happens only at the first boot-up.
 1. Once the desktop appears, open a Terminal window and run this command:
 
 		sudo raspi-config
