@@ -1,6 +1,6 @@
 # HOWTO Install the DigiLink+Pulse+FePi+RTC Raspberry Pi Image
 
-Version: 20190810
+Version: 20190810A
 
 Author: Steve Magnuson, AG7GN
 
@@ -28,6 +28,38 @@ This image uses the default configuration for user __pi__:  pi's home directory 
 - Watchdog service is enabled.  If the Pi locks up, it should automatically reboot within 10 seconds.
 - Includes GUI to make it easier to install and update various ham applications.
 
+## Bugs
+
+### FSQ Monitor window too big for screen
+
+- Those of you who are using video monitors with resolutions less than 1920x1080 might notice that if you open the FSQ monitor window while running Fldigi, the FSQ monitor window is bigger than your monitor's screen, with both the top title bar and the window bottom extending beyond the boundary of the monitor's screen.  
+
+#### The Fix:  
+
+- Click anywhere inside the FSQ monitor window, then press __Alt+Space__ (__Alt__ and __Space bar__ keys at the same time). 
+- Click __Move__ from the menu.  Note that the mouse pointer changes to two double-ended arrows, one on top of the other.
+- Move (*don't click, just move*) your mouse down (or use the keyboard arrow keys) until the FSQ Monitor window title bar appears.
+- Click your mouse or press __Enter__ to exit "move mode".  
+- Move your mouse pointer to the top of the FSQ monitor window title bar.  You should see your mouse cursor change from a pointer to double arrow.
+- Click and drag down to shrink the window to the desired size.  
+- Click and drag *inside* the title bar to locate the window as desired.
+
+### __Update Pi and Ham Apps__ doesn't work for Xastir, WSJT-X and Chirp
+
+- The script to install/update various ham applications does not work for Xastir, WSJT-X and Chirp.  This is because the latest versions of those programs have additional dependencies (additional applications or libraries) that the older versions of those programs didn't require.
+
+#### The Fix:
+
+- Make sure your Pi can access the Internet.
+- Open a Terminal (click the 4th icon from the right on the top menu bar - the icon is black with '__>___' inside) and run these commands:
+	
+		cd ~
+		git clone https://github.com/AG7GN/hamapps  
+		sudo cp hamapps/*.sh /usr/local/bin
+	
+	This will install a new (fixed) version of the script that updates the ham applications on your Pi , and also adds the ability to easily "update the update script" by including it as an application in __Update Pi and Ham Apps__ in the __Hamradio__ menu.
+
+
 ## Changes
 
 - OS and Raspberry Pi application updates.
@@ -42,7 +74,7 @@ This image uses the default configuration for user __pi__:  pi's home directory 
 ## Installation
 
 1. Assemble the DigiLink board and install it and the Fe-Pi audio board onto the Pi.
-1. [Download the image](https://drive.google.com/open?id=1EXXoKU0tRB-_dRrn3ndHDmkyGUySOOsI) from my Google Drive.  Click the __Download__ button when prompted with the "Whoops! There was a problem with the preview." window.
+1. [Download the image](https://drive.google.com/open?id=1EXXoKU0tRB-_dRrn3ndHDmkyGUySOOsI) (~2 GB) from my Google Drive.  Click the __Download__ button when prompted with the "Whoops! There was a problem with the preview." window.
 1. Burn the image to your SD card by following the ["Writing an image to the SD card"](https://www.raspberrypi.org/documentation/installation/installing-images/)  instructions.  Since you've already downloaded the image in the previous step, ignore the "Download the image" section on that web page.
 1. Insert the MicroSD card into the Pi and power it on.
 
@@ -70,7 +102,7 @@ This image uses the default configuration for user __pi__:  pi's home directory 
 	Both methods are equivalent.
 	
 1. Click __Raspberry > Preferences > Raspberry Pi Configuration__, then click __Change Password__ to set your password.  Click __OK__, and __OK__ again.
-1. Change the Hostname of your Pi as desired.
+1. Change the Hostname of your Pi as desired.  It's a good idea to include your call sign in the hostname to make it unique.  Example: __hampi-ag7gn__.  By convention, hostnames are lower case.
 1. If the outside edge of the desktop appears cut off on your monitor, Enable __Overscan__.
 1. Click __OK__.
 1. Click __Yes__ if prompted to reboot.
@@ -100,32 +132,5 @@ __WARNING:__ There is a long time bug in the Main Menu Editor that resets the me
 ## Customize the Fldigi Apps
 
 1. In Fldgi: __Configure > UI > Operator__.  Note you have to do this for both the __Fldigi (Left Radio)__ *and* __Fldigi (Right Radio)__ menu items.
-1. In Flmsg: __Config > Personal__ tab.  Note that you have to do this for both the __Flmsg (Left Radio)__ *and* __Fldigi (Right Radio)__ menu items.
-
-## Adjust the Audio Levels
-
-These settings are designed to get you somewhat close to the right audio levels.  Some adjustment will be necessary as every radio is different, and different ham radio applications have different audio level requirements.  
-
-__IMPORTANT__: While in the __Audio Device Settings__ app, __*DO NOT*__ click the __Make Default__ button!  That makes the Fe-Pi your default audio interface, which you do not want to do.
-1. Click __Raspberry > Preferences > Audio Device Settings__.  
-1. Select __Fe-Pi Audio__ from __Sound card:__ the drop-down.  
-1. Select the __Playback__ tab and adjust __Lineout__ to 100% (all the way to the top).  Adjust the PCM so it's about 80% of the way to the top.  Note that you can click the button with the chain links so you can independently adjust the left channel (left radio) and right channel (right radio) TX levels.
-1. Click the __Switches__ tab and check the __Capture Attenuate Switch (-6dB)__.
-1. Click the __Capture__ tab.  Adjust the __Capture__ setting so it's about 10% of the way up from the bottom.  Again, click the button with the chain links so you can independently adjust the left channel (left radio) and right channel (right radio) RX levels.
-1. Click __OK__ when done.  
-
-	Alternatively, all of these audio settings can be done in a Terminal window as well.  Open a terminal and run:
-
-		alsamixer
-		
-	Select __Fe-Pi__ as the sound interface and press __F5__ to show both the Capture and Playback settings.
-1. There are PulseAudio controls under __Raspberry > Sound & Video__.  I recommend leaving those settings as-is unless you are very familiar with configuring PulseAudio.
-
-W6AF has published a [guide to setting FM audio levels](https://w6af.com/local-radio-activity/digital-modes/setting-up-sound-levels-for-fm-digital-operation/) that seems to work well.  
-IMPORTANT: W6AF's instructions assume that you have the Fldigi waterfall settings set to default values, which are:
-- Upper signal level (db): 0 
-- Signal range (db): 60
-- Tx level attenuator (db): -3
-
-The above 3 settings are at the bottom of the Fldigi window.
+1. In Flmsg: __Config > Personal__ tab.  Note that you have to do this for both the __Flmsg (Left Radio)__ *and* __Flmsg (Right Radio)__ menu items.
 
