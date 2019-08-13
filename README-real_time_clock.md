@@ -1,5 +1,7 @@
 ## Setting the Real Time Clock (RTC)
 
+# THIS DOCUMENT IS INCOMPLETE - DO NOT USE
+
 1. Connect your Pi to the Internet if it isn't already.  
 
 1. Open a Terminal.  Run this command:

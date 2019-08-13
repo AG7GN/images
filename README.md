@@ -1,6 +1,6 @@
 # HOWTO Install the DigiLink+Pulse+FePi+RTC Raspberry Pi Image
 
-Version: 20190810A
+Version: 20190810B
 
 Author: Steve Magnuson, AG7GN
 
