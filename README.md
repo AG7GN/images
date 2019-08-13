@@ -81,6 +81,9 @@ This image uses the default configuration for user __pi__:  pi's home directory 
 ## First Time Boot-up Instructions
 
 1. You'll notice the first time you start the Pi with this image that it immediately reboots within a few seconds of the desktop appearing.  This is expected behavior and is caused by a script that runs on first boot that resets the VNC and SSH client and server keys among other things.  This happens only at the first boot-up.
+1. Connect your Pi's ethernet port to your home network or use the Pi's wifi to connect to your home network.  For WiFi:
+	- Click on the network icon (just to the left of the speaker icon) on the Pi's top menu bar.  
+	- Select your WiFi network from the list (NOTE: it make take a minute or 3 for the WiFi networks your Pi can see to appear in that list) and follow the instructions on the screen.
 1. Once the desktop appears, open a Terminal window and run this command:
 
 		sudo raspi-config
