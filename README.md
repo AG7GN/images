@@ -1,6 +1,6 @@
 # HOWTO Install the DigiLink+Pulse+FePi+RTC Raspberry Pi Image
 
-Version: 20190810C
+Version: 20190810D
 
 Author: Steve Magnuson, AG7GN
 
@@ -52,7 +52,7 @@ This image uses the default configuration for user __pi__:  pi's home directory 
 #### The Fix:
 
 - Make sure your Pi can access the Internet.
-- Open a Terminal (click the 4th icon from the right on the top menu bar - the icon is black with '__>___' inside) and run these commands:
+- Open a Terminal (click the 4th icon from the left on the top menu bar - the icon is black with '__>___' inside) and run these commands:
 	
 		cd ~
 		git clone https://github.com/AG7GN/hamapps  
