@@ -1,6 +1,6 @@
 # HOWTO Install the DigiLink+Pulse+FePi+RTC Raspberry Pi Image
 
-Version: 20190810B
+Version: 20190810C
 
 Author: Steve Magnuson, AG7GN
 
@@ -43,6 +43,7 @@ This image uses the default configuration for user __pi__:  pi's home directory 
 - Move your mouse pointer to the top of the FSQ monitor window title bar.  You should see your mouse cursor change from a pointer to double arrow.
 - Click and drag down to shrink the window to the desired size.  
 - Click and drag *inside* the title bar to locate the window as desired.
+- Click __Close__ in the FSQ Monitor window so Fldigi will remember the new window size the next time it opens.  
 
 ### __Update Pi and Ham Apps__ doesn't work for Xastir, WSJT-X and Chirp
 
