@@ -1,5 +1,9 @@
 ## (Optional) Using VNC Connect to operate your Pi remotely
 
+Version: 20190813
+
+Author: Steve Magnuson, AG7GN
+
 The Pi comes installed with __VNC Server__ software that allows it to be accessed from anywhere over your local network or the Internet.  This requires installing __VNC Viewer__ software on another computer.  This also allows your Pi to operate "headless" - without a keyboard video monitor and mouse (KVM) attached.  If you want to enable this functionality, follow these instructions.
 
 ### Configuration

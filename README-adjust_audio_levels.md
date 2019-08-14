@@ -1,5 +1,9 @@
 ## Adjust the Audio Levels
 
+Version: 20190813
+
+Author: Steve Magnuson, AG7GN
+
 These settings are designed to get you somewhat close to the right audio levels.  Some adjustment will be necessary as every radio is different, and different ham radio applications have different audio level requirements.  
 
 __IMPORTANT__: While in the __Audio Device Settings__ app, __*DO NOT*__ click the __Make Default__ button!  That makes the Fe-Pi your default audio interface, which you do not want to do.

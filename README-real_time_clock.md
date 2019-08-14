@@ -1,5 +1,10 @@
 ## Setting the Real Time Clock (RTC)
 
+Version: 20190813
+
+Author: Steve Magnuson, AG7GN
+
+
 # THIS DOCUMENT IS INCOMPLETE - DO NOT USE
 
 1. Connect your Pi to the Internet if it isn't already.  
