@@ -1,13 +1,13 @@
 ## Adjust the Audio Levels
 
-Version: 20190813
+Version: 20190819
 
 Author: Steve Magnuson, AG7GN
 
 These settings are designed to get you somewhat close to the right audio levels.  Some adjustment will be necessary as every radio is different, and different ham radio applications have different audio level requirements.  
 
 __IMPORTANT__: While in the __Audio Device Settings__ app, __*DO NOT*__ click the __Make Default__ button!  That makes the Fe-Pi your default audio interface, which you do not want to do.
-1. Click __Raspberry > Preferences > Audio Device Settings__.  
+1. Click __Raspberry > Hamradio > Audio Device Settings__.  
 1. Select __Fe-Pi Audio__ from __Sound card:__ the drop-down.  
 1. Select the __Playback__ tab and adjust __Lineout__ to 100% (all the way to the top).  Adjust the PCM so it's about 80% of the way to the top.  Note that you can click the button with the chain links so you can independently adjust the left channel (left radio) and right channel (right radio) TX levels.
 1. Click the __Switches__ tab and check the __Capture Attenuate Switch (-6dB)__.
