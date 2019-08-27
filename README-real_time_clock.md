@@ -1,11 +1,12 @@
 ## Setting the Real Time Clock (RTC)
 
-Version: 20190813
+Version: 20190827
 
 Author: Steve Magnuson, AG7GN
 
+# !!! IMPORTANT !!! This procedure is no longer necessary.  The DS3231 clock sets itself once the Pi is connected to the Internet and acquires time from Network Time Protocol (NTP) server.
 
-# THIS DOCUMENT IS INCOMPLETE - DO NOT USE
+## The following instructions are retained for reference only.
 
 1. Connect your Pi to the Internet if it isn't already.  
 
