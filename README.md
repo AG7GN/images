@@ -1,6 +1,6 @@
 # HOWTO Install the DigiLink+Pulse+FePi+RTC Raspberry Pi Image
 
-Version: 20190810D
+Version: 20190810E
 
 Author: Steve Magnuson, AG7GN
 
@@ -138,3 +138,93 @@ __WARNING:__ There is a long time bug in the Main Menu Editor that resets the me
 1. In Fldgi: __Configure > UI > Operator__.  Note you have to do this for both the __Fldigi (Left Radio)__ *and* __Fldigi (Right Radio)__ menu items.
 1. In Flmsg: __Config > Personal__ tab.  Note that you have to do this for both the __Flmsg (Left Radio)__ *and* __Flmsg (Right Radio)__ menu items.
 
+## Annoyances
+
+### `sudo apt-get upgrade` reports that `thonny` Python packages can't be upgraded
+
+Those of you who update the Pi OS and apps using the `sudo apt-get` command might notice that packages `python3-thonny` and `python3-thonny-pi` have been kept back:
+
+	pi@hampi:~ $ sudo apt update
+	Hit:1 http://mirrors.syringanetworks.net/raspbian/raspbian buster InRelease
+	Get:2 http://archive.raspberrypi.org/debian buster InRelease [25.2 kB] 
+	Fetched 25.2 kB in 1s (19.2 kB/s)                                      
+	Reading package lists... Done
+	Building dependency tree       
+	Reading state information... Done
+	2 packages can be upgraded. Run 'apt list --upgradable' to see them.
+
+	pi@hampi:~ $ sudo apt upgrade
+	Reading package lists... Done
+	Building dependency tree       
+	Reading state information... Done
+	Calculating upgrade... Done
+	The following packages have been kept back:
+		python3-thonny python3-thonny-pi
+	0 upgraded, 0 newly installed, 0 to remove and 2 not upgraded.
+
+#### The Fix:
+
+To fix this, install the `thonny` package:
+
+	pi@hampi:~ $ sudo apt install -y thonny
+	Reading package lists... Done
+	Building dependency tree       
+	Reading state information... Done
+	The following packages were automatically installed and are no longer required:
+		python3-pyperclip python3-thonny
+	Use 'sudo apt autoremove' to remove them.
+	The following additional packages will be installed:
+		python3-send2trash python3-thonny
+	Suggested packages:
+		python3-distro
+	The following packages will be REMOVED:
+		python3-thonny-pi
+	The following NEW packages will be installed:
+		python3-send2trash thonny
+	The following packages will be upgraded:
+		python3-thonny
+	1 upgraded, 2 newly installed, 1 to remove and 0 not upgraded.
+	Need to get 500 kB of archives.
+	After this operation, 807 kB of additional disk space will be used.
+	Get:1 http://mirrors.syringanetworks.net/raspbian/raspbian buster/main armhf python3-send2trash all 1.5.0-1 [10.3 kB]
+	Get:2 http://archive.raspberrypi.org/debian buster/main armhf python3-thonny all 3.2.0-1+rpt2 [20.5 kB]      
+	Get:3 http://archive.raspberrypi.org/debian buster/main armhf thonny all 3.2.0-1+rpt2 [469 kB]
+	Fetched 500 kB in 1s (372 kB/s) 
+	Reading changelogs... Done
+	(Reading database ... 124902 files and directories currently installed.)
+	Removing python3-thonny-pi (1.2) ...
+	Selecting previously unselected package python3-send2trash.
+	(Reading database ... 124869 files and directories currently installed.)
+	Preparing to unpack .../python3-send2trash_1.5.0-1_all.deb ...
+	Unpacking python3-send2trash (1.5.0-1) ...
+	Preparing to unpack .../python3-thonny_3.2.0-1+rpt2_all.deb ...
+	Unpacking python3-thonny (3.2.0-1+rpt2) over (3.1.0-1+rpt2) ...
+	Selecting previously unselected package thonny.
+	Preparing to unpack .../thonny_3.2.0-1+rpt2_all.deb ...
+	Unpacking thonny (3.2.0-1+rpt2) ...
+	Setting up python3-send2trash (1.5.0-1) ...
+	Setting up thonny (3.2.0-1+rpt2) ...
+	Setting up python3-thonny (3.2.0-1+rpt2) ...
+	Processing triggers for mime-support (3.62) ...
+	Processing triggers for hicolor-icon-theme (0.17-2) ...
+	Processing triggers for gnome-menus (3.31.4-3) ...
+	Processing triggers for man-db (2.8.5-2) ...
+	Processing triggers for desktop-file-utils (0.23-4) ...
+	pi@hampi:~ $ sudo apt list --upgradeable
+	Listing... Done
+	pi@hampi:~ $ 
+
+And then run `sudo apt autoremove`:
+
+	pi@hampi:~ $ sudo apt autoremove -y
+	Reading package lists... Done
+	Building dependency tree       
+	Reading state information... Done
+	The following packages will be REMOVED:
+		python3-pyperclip python3-thonny
+	0 upgraded, 0 newly installed, 2 to remove and 0 not upgraded.
+	After this operation, 81.9 kB disk space will be freed.
+	(Reading database ... 124993 files and directories currently installed.)
+	Removing python3-pyperclip (1.6.4-1) ...
+	Removing python3-thonny (3.2.0-1+rpt2) ...
+	pi@hampi:~ $ 
