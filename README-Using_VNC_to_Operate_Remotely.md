@@ -1,6 +1,6 @@
 ## (Optional) Using VNC Connect to operate your Pi remotely
 
-Version: 20190813
+Version: 20190901
 
 Author: Steve Magnuson, AG7GN
 
@@ -65,7 +65,13 @@ However, for the situation where the Pi and your client are on the same local ar
 	
 1. Log in with username __Pi__ and whatever you set your Pi password to.  *This is NOT your VNC account password!*.
 
+### Customization
 
+1. Screen resolution
+	- You may find that apps you run on your Pi are "too big to fit" into your VNC viewer window.  I've found the way to fix this is to set the resolution of your Pi.  You can do this while VNC'd into your Pi.
+	- Click __Raspberry > Preferences > Raspberry Pi Configuration__.  Click __Set Resolution__.  
+	
+		I select the highest resolution (__DMT mode 82 1920x1080 60Hz 16:9__).  The VNC Viewer software on your PC will scale it as necessary, but you may have to experiment with the Pi resolution settings to get something that works for you.  After you change the resolution, you must reboot the Pi. 
 	
 	
 
