@@ -4,6 +4,15 @@ Version: 20190810E
 
 Author: Steve Magnuson, AG7GN
 
+## Related Information
+
+[Adjusting Audio Levels](https://github.com/AG7GN/images/blob/master/README-adjust_audio_levels.md)
+
+[Configuring and Using  Auto-HotSpot](https://github.com/AG7GN/images/blob/master/README-auto_hotspot.md)
+
+[Operating your Hampi "Headless"](https://github.com/AG7GN/images/blob/master/README-Using_VNC_to_Operate_Remotely.md)
+
+
 ## Prerequisites
 
 - Raspberry Pi 3B, 3B+ or 4 (NOTE: I have only tested this image with 3B and 3B+.)
