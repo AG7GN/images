@@ -1,6 +1,6 @@
-# HOWTO Install the DigiLink+Pulse+FePi+RTC Raspberry Pi Image
+# Hampi Image
 
-Version: 20190810E
+Version 20190923
 
 Author: Steve Magnuson, AG7GN
 
@@ -17,79 +17,61 @@ Author: Steve Magnuson, AG7GN
 
 - Raspberry Pi 3B, 3B+ or 4 (NOTE: I have only tested this image with 3B and 3B+.)
 - [Fe-Pi Audio Z Version 2 sound card](https://fe-pi.com/products/fe-pi-audio-z-v2)
-- Budd Churchward's (WB7FHC) excellent DigiLink board (REV C or later) or equivalent GPIO controlled PTT interface that uses GPIO 12 for the left radio and GPIO 23 for the right radio
+- Budd Churchward's ([WB7FHC](http://wb7fhc.com/index.html)) excellent DigiLink (REV C or later) or [Nexus DR-X](http://wb7fhc.com/intro.html) board
 - 16GB or greater MicroSD card
 - OPTIONAL: Speakers attached to Pi's built-in audio jack if you want to monitor the radio's TX and/or RX on the Pi's speakers
 - Familiarity with the Pi's Terminal application, basic LINUX commands and the use of `sudo`
 
 This image uses the default configuration for user __pi__:  pi's home directory is __/home/pi__ and user __pi__ has passwordless __sudo__ privileges.  The desktop automatically starts without requiring a password for user __pi__.
 
-## Notes
+## Features
 
 - Uses the latest Debian 10 (Buster) Raspberry Pi OS
+
 - Fldigi, Flmsg, Flamp, Flarq are installed and minimally configured to use PulseAudio and 1 or 2 radios.  You must set your call sign and name, among other things, in the Fldigi and Flmsg settings.
 - Flrig is installed and configured for use with 1 or 2 radios, but it is not visible on the __Hamradio__ menu by default.  See the __Editing the Main Menu__ section for information on customizing the menu.
 - Direwolf is installed and configured for use with PulseAudio with 1 or 2 radios.
 - RMS Gateway software is installed but unconfigured and disabled.  RMS Gateway allows the Pi to be used as a Winlink gateway (requires special Sysop account from winlink.org).
-- There are items to toggle on and off TX and RX audio monitoring.  This only works if you have speakers connected to your Pi's built-in audio jack or your HDMI monitor has speakers.
+- There are menu items to toggle on and off TX and RX audio monitoring.  This only works if you have speakers connected to your Pi's built-in audio jack or your HDMI monitor has speakers.
 - Recognizes and enables a DS3231 Real Time Clock module, if installed.
-- A script is installed and enabled to restart or shutdown the Pi if the DigiLink button is pressed (DigiLink Rev __DS__ boards only).  If the button is pressed for 2 <= *t* < 5 seconds then released, the Pi will reboot.  If the button is pressed for *t* >= 5 seconds then released, the Pi will shutdown.  Note that the GPIO jumper on the DigiLink board must be installed in the '26' position for this to work.  If you want to use GPIO 13 or 6 instead (by moving the DigiLink GPIO jumper), you can edit the `/usr/local/bin/shutdown_button.py` file and set the `use_button` variable to 13 or 6 respectively.
-- Watchdog service is enabled.  If the Pi locks up, it should automatically reboot within 10 seconds.
-- Includes GUI to make it easier to install and update various ham applications.
+- A script is installed and enabled to restart or shutdown the Pi if the DigiLink button is pressed (DigiLink Rev __DS__ or [Nexus DR-X](http://wb7fhc.com/intro.html) boards only).  
+	- If the button is pressed for 2 <= *t* < 5 seconds then released, the Pi will reboot.  
+	- If the button is pressed for *t* >= 5 seconds then released, the Pi will shutdown.  			  
+	- Note that the GPIO jumper on the DigiLink board must be installed in the '26' position for this to work.  If you want to use GPIO 13 or 6 instead (by moving the DigiLink GPIO jumper), you can edit the `/usr/local/bin/shutdown_button.py` file and set the `use_button` variable to 13 or 6 respectively.  The [Nexus DR-X](http://wb7fhc.com/intro.html) board uses only GPIO 26 for this purpose - it cannot be changed.
+- Watchdog service is enabled.  If the Pi locks up, it *should* automatically reboot within 10 seconds.
+- Includes a GUI to make it easier to install and update various ham applications.
+
+## New in This Version
+
+- OS and Raspberry Pi application updates.
+- Supports user scripting based on the lever positions of the piano switch on the [Nexus DR-X](http://wb7fhc.com/intro.html) board.  A sample user script is in `/home/pi/pianoX.sh.example`.  Here's more information about [how it works](https://github.com/AG7GN/hampi-utilities/blob/master/README.md#check-piano-script).
+- Updater script (__Raspberry > Hamradio > Update Pi and Ham Apps__) now updates itself.  It checks to see if there's a new version of itself and automatically installs any new update.
+- Relocated the `.desktop` files from `/home/pi/.local/share/applications` to `/usr/local/share/applications`.
+- Added a script/GUI to allow the user to backup and restore the pi home folder to a USB stick/drive.
+- Added a __Name Your Radio__ script to allow the user to name the radios something other than "left" and "right".  The name will appear in the menus and in the title bars of the Fldigi family of applications instead of "Left Radio" and "Right Radio".
+- Added a few other scripts, some of which work behind the scenes to keep things running smoothly.  This collection is known as the [hampi-utilities](https://github.com/AG7GN/hampi-utilities/blob/master/README.md).
+- Moved all of the scripts I created out of the home folder to `/usr/local/bin/`.
+- You'll see __Configure RMS Gateway__ in the __Hamradio__ menu.  __Most users should ignore this menu item.__ This is only needed if you want this Pi to operate as an [RMS Gateway](https://www.winlink.org/tags/gateway).  
+
+	__*Note that operating an RMS Gateway requires that you obtain a "Sysop" account at winlink.org.*__ There are [other requirements](https://www.winlink.org/content/join_gateway_sysop_team_sysop_guidelines) as well .  If you operate the Pi as an RMS Gateway, I strongly recommend that you don't use the Pi for any other purpose.
 
 ## Bugs
 
-### FSQ Monitor window too big for screen
-
-- Those of you who are using video monitors with resolutions less than 1920x1080 might notice that if you open the FSQ monitor window while running Fldigi, the FSQ monitor window is bigger than your monitor's screen, with both the top title bar and the window bottom extending beyond the boundary of the monitor's screen.  
-
-#### The Fix:  
-
-- Click anywhere inside the FSQ monitor window, then press __Alt+Space__ (__Alt__ and __Space bar__ keys at the same time). 
-- Click __Move__ from the menu.  Note that the mouse pointer changes to two double-ended arrows, one on top of the other.
-- Move (*don't click, just move*) your mouse down (or use the keyboard arrow keys) until the FSQ Monitor window title bar appears.
-- Click your mouse or press __Enter__ to exit "move mode".  
-- Move your mouse pointer to the top of the FSQ monitor window title bar.  You should see your mouse cursor change from a pointer to double arrow.
-- Click and drag down to shrink the window to the desired size.  
-- Click and drag *inside* the title bar to locate the window as desired.
-- Click __Close__ in the FSQ Monitor window so Fldigi will remember the new window size the next time it opens.  
-
-### __Update Pi and Ham Apps__ doesn't work for Xastir, WSJT-X and Chirp
-
-- The script to install/update various ham applications does not work for Xastir, WSJT-X and Chirp.  This is because the latest versions of those programs have additional dependencies (additional applications or libraries) that the older versions of those programs didn't require.
-
-#### The Fix:
-
-- Make sure your Pi can access the Internet.
-- Open a Terminal (click the 4th icon from the left on the top menu bar - the icon is black with '__>___' inside) and run these commands:
-	
-		cd ~
-		git clone https://github.com/AG7GN/hamapps  
-		sudo cp hamapps/*.sh /usr/local/bin
-	
-	This will install a new (fixed) version of the script that updates the ham applications on your Pi , and also adds the ability to easily "update the update script" by including it as an application in __Update Pi and Ham Apps__ in the __Hamradio__ menu.
-
-
-## Changes
-
-- OS and Raspberry Pi application updates.
-- Added screensaver app.  By default, the screensaver is disabled.  To adjust, go to __Raspberry > Preferences > Screensaver__.
-- Added GUI to install/remove/manage Auto-HotSpot. See __Raspberry > Preferences > Manage Auto-HotSpot__.
-- Updated __tnc.sh__ script.
-- Updated __initialize-pi.sh__ script.
-- Updated __Fldigi__, __Flmsg__ and __Flrig__.
-- Updated __iptables__ firewall rules.
-- Updated __710.sh__ script (provides command line radio control for Kenwood TM-V71A and TM-D710G radios).
+Probably.  WATCH THIS SPACE.  I will post bug information and workarounds here.
 
 ## Installation
 
-1. Assemble the DigiLink board and install it and the Fe-Pi audio board onto the Pi.
-1. [Download the image](https://drive.google.com/open?id=1EXXoKU0tRB-_dRrn3ndHDmkyGUySOOsI) (~2 GB) from my Google Drive.  Click the __Download__ button when prompted with the "Whoops! There was a problem with the preview." window.
+1. Assemble the DigiLink or [Nexus DR-X](http://wb7fhc.com/intro.html) board and install it and the Fe-Pi audio board onto the Pi.
+1. [Download the image](https://drive.google.com/open?id=1LZing_xrFSDDoAIH6i2aiS_6K2lrw8Js) (3.62 GB) from my Google Drive.  Click the __Download__ button when prompted with the "Whoops! There was a problem with the preview." window.
 1. Burn the image to your SD card by following the ["Writing an image to the SD card"](https://www.raspberrypi.org/documentation/installation/installing-images/)  instructions.  Since you've already downloaded the image in the previous step, ignore the "Download the image" section on that web page.
 1. Insert the MicroSD card into the Pi and power it on.
+1. You'll need a keyboard/video/mouse attached for the first boot.
 
-## First Time Boot-up Instructions
+## First Time Boot Instructions
 
+__*PLEASE* DO THESE STEPS before seeking help!  You must expand the file system (step 4 below) if you want to install any additional software__
+
+1. You'll need a keyboard/video/mouse attached for the first boot.
 1. You'll notice the first time you start the Pi with this image that it immediately reboots within a few seconds of the desktop appearing.  This is expected behavior and is caused by a script that runs on first boot that resets the VNC and SSH client and server keys among other things.  This happens only at the first boot-up.
 1. Connect your Pi's ethernet port to your home network or use the Pi's wifi to connect to your home network.  For WiFi:
 	- Click on the network icon (just to the left of the speaker icon) on the Pi's top menu bar.  
@@ -103,43 +85,36 @@ This image uses the default configuration for user __pi__:  pi's home directory 
 	- Press __Enter__ at the "Root partition has been resized" screen.
 	- Press the __TAB__ key to select __Finish__, then press __ENTER__.
 	- Select __Yes__ to reboot.
-1. Once the desktop appears, click __Raspberry > Hamradio > Update Pi and Ham Apps__ and check __Raspbian OS and Apps__, then click OK.  This will download and install the latest OS updates.  Reboot if prompted to do so.
-
-	Alternatively, you can open a Terminal window and run these commands:
-
-		sudo apt-get update
-		sudo apt-get upgrade -y
-		
-	Close the terminal window when the commands finish running (type `exit` and press __ENTER__).
-	
-	Both methods are equivalent.
-	
-1. Click __Raspberry > Preferences > Raspberry Pi Configuration__, then click __Change Password__ to set your password.  Click __OK__, and __OK__ again.
-1. Change the Hostname of your Pi as desired.  It's a good idea to include your call sign in the hostname to make it unique.  Example: __hampi-ag7gn__.  By convention, hostnames are lower case.
 1. If the outside edge of the desktop appears cut off on your monitor, Enable __Overscan__.
+1. Once the desktop appears, click __Raspberry > Hamradio > Update Pi and Ham Apps__ and check __Raspbian OS and Apps__, then click OK.  This will download and install the latest OS updates.  Reboot if prompted to do so.
+1. Click __Raspberry > Preferences > Raspberry Pi Configuration__, then click __Change Password__ to set your password.  Click __OK__, and __OK__ again.
+1. Change the Hostname of your Pi as desired.  It's a good idea to include your call sign in the hostname to make it unique.  Example: __hampi-ag7gn__.  By convention, hostnames are lower case.  You can use any name, but the only non-alphanumeric character allowed is a dash (-).
 1. Click __OK__.
 1. Click __Yes__ if prompted to reboot.
-1. Click __Raspberry > Hamradio__ to access the ham applications.
 
 ## Update OS and Update/Install Ham Applications
 
-1. Click __Raspberry > Hamradio > Update Pi and Ham Apps__.  Check the applications you want to update or install and click __OK__.  Some installations take a very long time.  Don't install an application unless you understand what the application is for.  __*Installing an application does not configure it. Consult the documentation for that application for configuration instructions*__.
-1. As you already know from the First Time Boot-up Instructions, checking the __Raspbian OS and Apps__ item in the GUI will check for and install OS updates.  This is equivalent to running the following commands in a Terminal:
+1. Click __Raspberry > Hamradio > Update Pi and Ham Apps__.  Check the applications you want to update or install and click __OK__.  Some installations take a very long time.  Don't install an application unless you understand what the application is for.  __*Installing an application does not configure it*__. Consult the documentation for that application for configuration instructions.
+
+	You can double-click on the app name to obtain information about that app.  This will open the Chromium browser.
+
+1. As you already know from the [First Time Boot Instructions](#first-time-boot-instructions), checking the __Raspbian OS and Apps__ item in the GUI will check for and install OS updates.  This is equivalent to running the following commands in a Terminal:
 
 		sudo apt-get update
 		sudo apt-get upgrade -y
 
-	I recommend checking for updates for __Raspbian OS and Apps__ once a week.
+	I recommend checking for updates for __Raspbian OS and Apps__ about once a week.
 
 ## (Optional) Customize the Main Menu
 
 __WARNING:__ There is a long time bug in the Main Menu Editor that resets the menu settings to default when you click the __Cancel__ button.  So, *NEVER* click the __Cancel__ button!  Even if you made no changes, click __OK__ instead.
 
+FYI: If you make changes to a particular menu item, a new desktop file will be created in `/home/pi/.local/share/applications` and that file will be used to populate the menu even if there is a `.desktop` file in the default location `/usr/local/share/applications` with the same name. 
+
 1. Click __Raspberry > Preferences > Main Menu Editor__.  
 1. Select __Hamradio__ in the left pane.
 1. Check or uncheck the applications listed in the center pane as desired.
 1. Click the __Up__ or __Down__ buttons to move the selected item up or down in the menu list.  Add or remove separators in the menu list as desired.
-1. Note that the __Configure RMS Gateway__ item is not checked and so does not appear in the menu.  If you decide to use this Pi as an RMS Gateway, check this item to enable the configuration GUI for the RMS Gateway.  Note that operating an RMS Gateway requires that you obtain a "Sysop" account at winlink.org.  There are other requirements as well.  If you operate the Pi as an RMS Gateway, I strongly recommend that you don't use the Pi for any other purpose.
 1. Click __OK__ (*never* click __Cancel__!) when done.
 
 ## Customize the Fldigi Apps
@@ -147,93 +122,17 @@ __WARNING:__ There is a long time bug in the Main Menu Editor that resets the me
 1. In Fldgi: __Configure > UI > Operator__.  Note you have to do this for both the __Fldigi (Left Radio)__ *and* __Fldigi (Right Radio)__ menu items.
 1. In Flmsg: __Config > Personal__ tab.  Note that you have to do this for both the __Flmsg (Left Radio)__ *and* __Flmsg (Right Radio)__ menu items.
 
+## Direwolf Notes
+
+User pi's home folder contains 2 Direwolf configuration files: `/home/pi/direwolf-left.conf` and `/home/pi/direwolf-right.conf`.  If you are going to use Direwolf as a KISS or AGW TNC with a Windows RMS Express client or Xastir, there's no need to change `MYCALL` in these files from the default `N0ONE-10`.  Those applications will supply your call sign to Direwolf via the KISS or AGW connection.  You can change `MYCALL` if you'd like, of course.
+
+If you want to use this Pi as an APRS Digipeater and/or iGate, use the [`/usr/local/bin/tnc.sh`](https://github.com/AG7GN/hampi-utilities/blob/master/README.md#tnc-script) and associated [`/usr/local/bin/watchdog-tnc.sh`](https://github.com/AG7GN/hampi-utilities/blob/master/README.md#watchdog-tnc-script) scripts. 
+
+`tnc.sh` also works with `pat` and `arim`, which you can install using the Updater: __Raspberry > Hamradio > Update Pi and Ham Apps__.  `tnc.sh` creates on on-the-fly direwolf configuration file depending on what mode you want to use.  It will also allocate a `pty` for `pat` (`pat` can't use KISS).  
+
+The configuration files for `tnc.sh` are in [`/home/pi/tnc-left.conf`](https://github.com/AG7GN/hampi-utilities/blob/master/README.md#tnc-left-tnc-right-configuration-files) and [`/home/pi/tnc-right.conf`](https://github.com/AG7GN/hampi-utilities/blob/master/README.md#tnc-left-tnc-right-configuration-files).
+
+
 ## Annoyances
 
-### `sudo apt-get upgrade` reports that `thonny` Python packages can't be upgraded
-
-Those of you who update the Pi OS and apps using the `sudo apt-get` command might notice that packages `python3-thonny` and `python3-thonny-pi` have been kept back:
-
-	pi@hampi:~ $ sudo apt update
-	Hit:1 http://mirrors.syringanetworks.net/raspbian/raspbian buster InRelease
-	Get:2 http://archive.raspberrypi.org/debian buster InRelease [25.2 kB] 
-	Fetched 25.2 kB in 1s (19.2 kB/s)                                      
-	Reading package lists... Done
-	Building dependency tree       
-	Reading state information... Done
-	2 packages can be upgraded. Run 'apt list --upgradable' to see them.
-
-	pi@hampi:~ $ sudo apt upgrade
-	Reading package lists... Done
-	Building dependency tree       
-	Reading state information... Done
-	Calculating upgrade... Done
-	The following packages have been kept back:
-		python3-thonny python3-thonny-pi
-	0 upgraded, 0 newly installed, 0 to remove and 2 not upgraded.
-
-#### The Fix:
-
-To fix this, install the `thonny` package:
-
-	pi@hampi:~ $ sudo apt install -y thonny
-	Reading package lists... Done
-	Building dependency tree       
-	Reading state information... Done
-	The following packages were automatically installed and are no longer required:
-		python3-pyperclip python3-thonny
-	Use 'sudo apt autoremove' to remove them.
-	The following additional packages will be installed:
-		python3-send2trash python3-thonny
-	Suggested packages:
-		python3-distro
-	The following packages will be REMOVED:
-		python3-thonny-pi
-	The following NEW packages will be installed:
-		python3-send2trash thonny
-	The following packages will be upgraded:
-		python3-thonny
-	1 upgraded, 2 newly installed, 1 to remove and 0 not upgraded.
-	Need to get 500 kB of archives.
-	After this operation, 807 kB of additional disk space will be used.
-	Get:1 http://mirrors.syringanetworks.net/raspbian/raspbian buster/main armhf python3-send2trash all 1.5.0-1 [10.3 kB]
-	Get:2 http://archive.raspberrypi.org/debian buster/main armhf python3-thonny all 3.2.0-1+rpt2 [20.5 kB]      
-	Get:3 http://archive.raspberrypi.org/debian buster/main armhf thonny all 3.2.0-1+rpt2 [469 kB]
-	Fetched 500 kB in 1s (372 kB/s) 
-	Reading changelogs... Done
-	(Reading database ... 124902 files and directories currently installed.)
-	Removing python3-thonny-pi (1.2) ...
-	Selecting previously unselected package python3-send2trash.
-	(Reading database ... 124869 files and directories currently installed.)
-	Preparing to unpack .../python3-send2trash_1.5.0-1_all.deb ...
-	Unpacking python3-send2trash (1.5.0-1) ...
-	Preparing to unpack .../python3-thonny_3.2.0-1+rpt2_all.deb ...
-	Unpacking python3-thonny (3.2.0-1+rpt2) over (3.1.0-1+rpt2) ...
-	Selecting previously unselected package thonny.
-	Preparing to unpack .../thonny_3.2.0-1+rpt2_all.deb ...
-	Unpacking thonny (3.2.0-1+rpt2) ...
-	Setting up python3-send2trash (1.5.0-1) ...
-	Setting up thonny (3.2.0-1+rpt2) ...
-	Setting up python3-thonny (3.2.0-1+rpt2) ...
-	Processing triggers for mime-support (3.62) ...
-	Processing triggers for hicolor-icon-theme (0.17-2) ...
-	Processing triggers for gnome-menus (3.31.4-3) ...
-	Processing triggers for man-db (2.8.5-2) ...
-	Processing triggers for desktop-file-utils (0.23-4) ...
-	pi@hampi:~ $ sudo apt list --upgradeable
-	Listing... Done
-	pi@hampi:~ $ 
-
-And then run `sudo apt autoremove`:
-
-	pi@hampi:~ $ sudo apt autoremove -y
-	Reading package lists... Done
-	Building dependency tree       
-	Reading state information... Done
-	The following packages will be REMOVED:
-		python3-pyperclip python3-thonny
-	0 upgraded, 0 newly installed, 2 to remove and 0 not upgraded.
-	After this operation, 81.9 kB disk space will be freed.
-	(Reading database ... 124993 files and directories currently installed.)
-	Removing python3-pyperclip (1.6.4-1) ...
-	Removing python3-thonny (3.2.0-1+rpt2) ...
-	pi@hampi:~ $ 
+Things that aren't really bugs, but irritating nevertheless will be documented here.
