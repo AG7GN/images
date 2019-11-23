@@ -1,6 +1,6 @@
 ## (Optional) Using VNC Connect to operate your Pi remotely
 
-Version: 20190901
+Version: 20191123
 
 Author: Steve Magnuson, AG7GN
 
@@ -10,7 +10,7 @@ The Pi comes installed with __VNC Server__ software that allows it to be accesse
 
 __Your Pi must be connected to the Internet.__
 
-__You must have a KVM attached to the Pi for the configuration steps below.__
+__You must have a Keyboard/Monitor/Mouse (KVM) attached to the Pi for the configuration steps below.__
 
 1. On your PC or Mac or ..., (in other words, the computer/tablet from
 which you want to remotely access your Pi) download and install [VNC Viewer software](https://www.realvnc.com/en/connect/download/viewer/).  Your device running __VNC Viewer__ is called the __client__.  Note on that web page that you can download __VNC Viewer__ for tablets and Chromebook computers, too.

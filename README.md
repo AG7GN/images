@@ -1,6 +1,6 @@
 # Hampi Image
 
-Version 20190923
+Version 20191123
 
 Author: Steve Magnuson, AG7GN
 
@@ -24,6 +24,8 @@ Author: Steve Magnuson, AG7GN
 
 This image uses the default configuration for user __pi__:  pi's home directory is __/home/pi__ and user __pi__ has passwordless __sudo__ privileges.  The desktop automatically starts without requiring a password for user __pi__.
 
+The default password for user __pi__ is __changeme__.
+
 ## Features
 
 - Uses the latest Debian 10 (Buster) Raspberry Pi OS
@@ -31,29 +33,26 @@ This image uses the default configuration for user __pi__:  pi's home directory 
 - Fldigi, Flmsg, Flamp, Flarq are installed and minimally configured to use PulseAudio and 1 or 2 radios.  You must set your call sign and name, among other things, in the Fldigi and Flmsg settings.
 - Flrig is installed and configured for use with 1 or 2 radios, but it is not visible on the __Hamradio__ menu by default.  See the __Editing the Main Menu__ section for information on customizing the menu.
 - Direwolf is installed and configured for use with PulseAudio with 1 or 2 radios.
-- RMS Gateway software is installed but unconfigured and disabled.  RMS Gateway allows the Pi to be used as a Winlink gateway (requires special Sysop account from winlink.org).
+- You'll see __Configure RMS Gateway__ in the __Hamradio__ menu.  __Most users should ignore this menu item.__ This is only needed if you want this Pi to operate as an [RMS Gateway](https://www.winlink.org/tags/gateway).  
+
+	__*Note that operating an RMS Gateway requires that you obtain a "Sysop" account at winlink.org.*__ There are [other requirements](https://www.winlink.org/content/join_gateway_sysop_team_sysop_guidelines) as well .  If you operate the Pi as an RMS Gateway, I strongly recommend that you don't use the Pi for any other purpose.
 - There are menu items to toggle on and off TX and RX audio monitoring.  This only works if you have speakers connected to your Pi's built-in audio jack or your HDMI monitor has speakers.
 - Recognizes and enables a DS3231 Real Time Clock module, if installed.
 - A script is installed and enabled to restart or shutdown the Pi if the DigiLink button is pressed (DigiLink Rev __DS__ or [Nexus DR-X](http://wb7fhc.com/intro.html) boards only).  
 	- If the button is pressed for 2 <= *t* < 5 seconds then released, the Pi will reboot.  
 	- If the button is pressed for *t* >= 5 seconds then released, the Pi will shutdown.  			  
-	- Note that the GPIO jumper on the DigiLink board must be installed in the '26' position for this to work.  If you want to use GPIO 13 or 6 instead (by moving the DigiLink GPIO jumper), you can edit the `/usr/local/bin/shutdown_button.py` file and set the `use_button` variable to 13 or 6 respectively.  The [Nexus DR-X](http://wb7fhc.com/intro.html) board uses only GPIO 26 for this purpose - it cannot be changed.
+	- Note that the GPIO jumper on the DigiLink board must be installed in the '26' position for this to work.  If you want to use GPIO 13 or 6 instead (by moving the DigiLink GPIO jumper), you can edit the `/usr/local/bin/shutdown_button.py` file and set the `use_button` variable to 13 or 6 respectively.  The [Nexus DR-X](http://wb7fhc.com/intro.html) board is hard wired to GPIO 26 for this purpose - it cannot be changed.
 - Watchdog service is enabled.  If the Pi locks up, it *should* automatically reboot within 10 seconds.
 - Includes a GUI to make it easier to install and update various ham applications.
+- Supports user scripting based on the lever positions of the piano switch on the [Nexus DR-X](http://wb7fhc.com/intro.html) board.  A sample user script is in `/home/pi/pianoX.sh.example`.  Here's more information about [how it works](https://github.com/AG7GN/hampi-utilities/blob/master/README.md#check-piano-script).
 
 ## New in This Version
 
-- OS and Raspberry Pi application updates.
-- Supports user scripting based on the lever positions of the piano switch on the [Nexus DR-X](http://wb7fhc.com/intro.html) board.  A sample user script is in `/home/pi/pianoX.sh.example`.  Here's more information about [how it works](https://github.com/AG7GN/hampi-utilities/blob/master/README.md#check-piano-script).
-- Updater script (__Raspberry > Hamradio > Update Pi and Ham Apps__) now updates itself.  It checks to see if there's a new version of itself and automatically installs any new update.
-- Relocated the `.desktop` files from `/home/pi/.local/share/applications` to `/usr/local/share/applications`.
-- Added a script/GUI to allow the user to backup and restore the pi home folder to a USB stick/drive.
-- Added a __Name Your Radio__ script to allow the user to name the radios something other than "left" and "right".  The name will appear in the menus and in the title bars of the Fldigi family of applications instead of "Left Radio" and "Right Radio".
-- Added a few other scripts, some of which work behind the scenes to keep things running smoothly.  This collection is known as the [hampi-utilities](https://github.com/AG7GN/hampi-utilities/blob/master/README.md).
-- Moved all of the scripts I created out of the home folder to `/usr/local/bin/`.
-- You'll see __Configure RMS Gateway__ in the __Hamradio__ menu.  __Most users should ignore this menu item.__ This is only needed if you want this Pi to operate as an [RMS Gateway](https://www.winlink.org/tags/gateway).  
-
-	__*Note that operating an RMS Gateway requires that you obtain a "Sysop" account at winlink.org.*__ There are [other requirements](https://www.winlink.org/content/join_gateway_sysop_team_sysop_guidelines) as well .  If you operate the Pi as an RMS Gateway, I strongly recommend that you don't use the Pi for any other purpose.
+- Latest OS and Raspberry Pi application updates installed.
+- Numerous updates to [hampi-utilities](https://github.com/AG7GN/hampi-utilities/blob/master/README.md).
+- Latest [Kenwood TM-D710G/TM-V71A](https://github.com/AG7GN/kenwood) radio control script installed.
+- [CUPS](https://en.wikipedia.org/wiki/CUPS) is installed and a menu item added to __Raspberry > Preferences__ to manage printers.
+- Default password for user __pi__ is set to __changeme__.  *Please change this password!*  Instructions are under __First Time Boot Instructions__ below.
 
 ## Bugs
 
@@ -62,16 +61,16 @@ Probably.  WATCH THIS SPACE.  I will post bug information and workarounds here.
 ## Installation
 
 1. Assemble the DigiLink or [Nexus DR-X](http://wb7fhc.com/intro.html) board and install it and the Fe-Pi audio board onto the Pi.
-1. [Download the image](https://drive.google.com/open?id=1LZing_xrFSDDoAIH6i2aiS_6K2lrw8Js) (3.62 GB) from my Google Drive.  Click the __Download__ button when prompted with the "Whoops! There was a problem with the preview." window.
+1. [Download the image](https://drive.google.com/open?id=1qemN3vxEZijSvZfUqSC45oj-ISXEHQvz) (3.7 GB) from my Google Drive.  Click the __Download__ button when prompted with the "Whoops! There was a problem with the preview." window.
 1. Burn the image to your SD card by following the ["Writing an image to the SD card"](https://www.raspberrypi.org/documentation/installation/installing-images/)  instructions.  Since you've already downloaded the image in the previous step, ignore the "Download the image" section on that web page.
 1. Insert the MicroSD card into the Pi and power it on.
-1. You'll need a keyboard/video/mouse attached for the first boot.
+1. You'll need a keyboard/video/mouse (KVM) attached for the first boot.
 
 ## First Time Boot Instructions
 
-__*PLEASE* DO THESE STEPS before seeking help!  You must expand the file system (step 4 below) if you want to install any additional software__
+__*PLEASE* DO THESE STEPS before seeking help!  The downloaded image is compressed to save download time.  You must expand the file system (step 4 below) if you want to install any additional software!__
 
-1. You'll need a keyboard/video/mouse attached for the first boot.
+1. You'll need a keyboard/video/mouse (KVM) attached for the first boot.
 1. You'll notice the first time you start the Pi with this image that it immediately reboots within a few seconds of the desktop appearing.  This is expected behavior and is caused by a script that runs on first boot that resets the VNC and SSH client and server keys among other things.  This happens only at the first boot-up.
 1. Connect your Pi's ethernet port to your home network or use the Pi's wifi to connect to your home network.  For WiFi:
 	- Click on the network icon (just to the left of the speaker icon) on the Pi's top menu bar.  
@@ -85,12 +84,12 @@ __*PLEASE* DO THESE STEPS before seeking help!  You must expand the file system 
 	- Press __Enter__ at the "Root partition has been resized" screen.
 	- Press the __TAB__ key to select __Finish__, then press __ENTER__.
 	- Select __Yes__ to reboot.
-1. If the outside edge of the desktop appears cut off on your monitor, Enable __Overscan__.
-1. Once the desktop appears, click __Raspberry > Hamradio > Update Pi and Ham Apps__ and check __Raspbian OS and Apps__, then click OK.  This will download and install the latest OS updates.  Reboot if prompted to do so.
-1. Click __Raspberry > Preferences > Raspberry Pi Configuration__, then click __Change Password__ to set your password.  Click __OK__, and __OK__ again.
-1. Change the Hostname of your Pi as desired.  It's a good idea to include your call sign in the hostname to make it unique.  Example: __hampi-ag7gn__.  By convention, hostnames are lower case.  You can use any name, but the only non-alphanumeric character allowed is a dash (-).
+1. Once the desktop appears, click __Raspberry > Preferences > Raspberry Pi Configuration__, then click __Change Password__ to set your password.  Click __OK__, and __OK__ again.  
+1. If the outside edge of the desktop appears cut off on your monitor or your desktop doesn't fully fill your monitor's screen, enable or disable __Overscan__ as needed to fix the problem.  
+1. Change the Hostname of your Pi as desired.  It's a good idea to include your call sign in the hostname to make it unique.  Example: __hampi-ag7gn__.  By convention, hostnames are lower case, but there's no harm in using capital letters.  You can use any name, but the only non-alphanumeric character allowed is a dash (-).
 1. Click __OK__.
 1. Click __Yes__ if prompted to reboot.
+1. When the desktop appears, run the Updater: Click __Raspberry > Hamradio > Update Pi and Ham Apps__, then re-run __Raspberry > Hamradio > Update Pi and Ham Apps__ if prompted to do so.  Check __Raspbian ODS and Apps__ and click __OK__.  Reboot if prompted.
 
 ## Update OS and Update/Install Ham Applications
 
