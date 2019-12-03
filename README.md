@@ -1,6 +1,6 @@
 # Hampi Image
 
-Version 20191123
+Version 20191123B
 
 Author: Steve Magnuson, AG7GN
 
@@ -61,7 +61,9 @@ Probably.  WATCH THIS SPACE.  I will post bug information and workarounds here.
 ## Installation
 
 1. Assemble the DigiLink or [Nexus DR-X](http://wb7fhc.com/intro.html) board and install it and the Fe-Pi audio board onto the Pi.
-1. [Download the image](https://drive.google.com/open?id=1qemN3vxEZijSvZfUqSC45oj-ISXEHQvz) (3.7 GB) from my Google Drive.  Click the __Download__ button when prompted with the "Whoops! There was a problem with the preview." window.
+1. The Hampi image is larger than the allowed file size on GitHub, so I store the image on a Google Drive.  
+	- [Access my Google Drive](https://drive.google.com/open?id=1qemN3vxEZijSvZfUqSC45oj-ISXEHQvz) (3.7 GB)  
+	- Click the __Download__ button when prompted with the "Whoops! There was a problem with the preview." window.
 1. Burn the image to your SD card by following the ["Writing an image to the SD card"](https://www.raspberrypi.org/documentation/installation/installing-images/)  instructions.  Since you've already downloaded the image in the previous step, ignore the "Download the image" section on that web page.
 1. Insert the MicroSD card into the Pi and power it on.
 1. You'll need a keyboard/video/mouse (KVM) attached for the first boot.
