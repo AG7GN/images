@@ -92,7 +92,7 @@ __*PLEASE* DO THESE STEPS before seeking help!__
 	You can double-click on the app name in the Updater to obtain information about that app.  This will open the Chromium browser and and take you to the website for that app.
 
 ```diff
-+__**IMPORTANT**__:  As of late January, 2020, a bug in the Linux kernel used in the production release of Raspbian causes the Fe-Pi sound card not to work.  DO NOT udpate Raspbian until this is fixed.  I'll update the documentation here when it's OK to update Raspbian.
+-__**IMPORTANT**__:  As of late January, 2020, a bug in the Linux kernel used in the production release of Raspbian causes the Fe-Pi sound card not to work.  DO NOT udpate Raspbian until this is fixed.  I'll update the documentation here when it's OK to update Raspbian.
 ```
 
 1. <s>As you already know from the [First Time Boot Instructions](#first-time-boot-instructions), checking the __Raspbian OS and Apps__ item in the Updater will check for and install OS updates.  This is equivalent to running the following commands in a Terminal:
