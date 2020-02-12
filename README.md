@@ -83,15 +83,15 @@ __*PLEASE* DO THESE STEPS before seeking help!__
 
 1. Click __Yes__ if prompted to reboot.
 
-1. When the desktop appears, run the Updater: Click __Raspberry > Hamradio > Update Pi and Ham Apps__, then, *only if prompted to do so*, re-run __Raspberry > Hamradio > Update Pi and Ham Apps__.  Check __Raspbian OS and Apps__ and click __OK__.  Reboot if prompted.
+1. When the desktop appears, run the Updater: Click __Raspberry > Hamradio > Update Pi and Ham Apps__, then, *only if prompted to do so*, re-run __Raspberry > Hamradio > Update Pi and Ham Apps__.  <s>Check __Raspbian OS and Apps__ and click __OK__.  Reboot if prompted.</s>
 
 ## <s>Update Raspbian OS and</s> Update/Install Ham Applications
+&#x1F6D1;   __**IMPORTANT**__:  As of late January, 2020, a bug in the Linux kernel used in the production release of Raspbian causes the Fe-Pi sound card not to work.  DO NOT udpate Raspbian until this is fixed.  I'll update the documentation here when it's OK to update Raspbian. 
+
 
 1. Click __Raspberry > Hamradio > Update Pi and Ham Apps__ to run the Updater.  Check the application(s) you want to update or install and click __OK__.  Some installations take a very long time.  Don't install an application unless you understand what the application is for.  __*Installing an application does not configure it*__. Consult the documentation for that application for configuration instructions.
 
 	You can double-click on the app name in the Updater to obtain information about that app.  This will open the Chromium browser and and take you to the website for that app.
-
-&#x1F534;__**IMPORTANT**__:  As of late January, 2020, a bug in the Linux kernel used in the production release of Raspbian causes the Fe-Pi sound card not to work.  DO NOT udpate Raspbian until this is fixed.  I'll update the documentation here when it's OK to update Raspbian.
 
 1. <s>As you already know from the [First Time Boot Instructions](#first-time-boot-instructions), checking the __Raspbian OS and Apps__ item in the Updater will check for and install OS updates.  This is equivalent to running the following commands in a Terminal:
 
