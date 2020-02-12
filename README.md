@@ -4,6 +4,8 @@ Version 20191214
 
 Author: Steve Magnuson, AG7GN
 
+&#x1F6D1;   __**IMPORTANT**__:  As of late January, 2020, a bug in the Linux kernel used in the production release of Raspbian causes the Fe-Pi sound card not to work.  You can use this image as is, but please DO NOT udpate the Raspbian OS until this is fixed.  I'll update the documentation here when it's OK to update Raspbian. 
+
 ## Prerequisites
 
 - Raspberry Pi 3B, 3B+ or 4B (NOTE: I have only tested this image with the 3B and 3B+)
