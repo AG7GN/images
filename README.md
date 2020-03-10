@@ -1,10 +1,10 @@
 # Hampi Image
 
-Version 20191214
+Version 20191214.2
 
 Author: Steve Magnuson, AG7GN
 
-&#x1F6D1;   __**IMPORTANT**__:  As of late January, 2020, a bug in the Linux kernel used in the production release of Raspbian causes the Fe-Pi sound card not to work.  You can use this image as is, but please DO NOT udpate the Raspbian OS until this is fixed.  I'll update the documentation here when it's OK to update Raspbian. 
+&#x1F6D1;   __**IMPORTANT**__:  As of late January, 2020, a bug in the Linux kernel used in the production release of Raspbian causes the Fe-Pi sound card not to work.  You can use this Hampi image as is, but after you install it, please DO NOT udpate the Raspbian OS until this bug is fixed.  I'll update the documentation here when it's OK to update Raspbian. 
 
 ## Prerequisites
 
@@ -88,7 +88,7 @@ __*PLEASE* DO THESE STEPS before seeking help!__
 1. When the desktop appears, run the Updater: Click __Raspberry > Hamradio > Update Pi and Ham Apps__, then, *only if prompted to do so*, re-run __Raspberry > Hamradio > Update Pi and Ham Apps__.  <s>Check __Raspbian OS and Apps__ and click __OK__.  Reboot if prompted.</s>
 
 ## <s>Update Raspbian OS and</s> Update/Install Ham Applications
-&#x1F6D1;   __**IMPORTANT**__:  As of late January, 2020, a bug in the Linux kernel used in the production release of Raspbian causes the Fe-Pi sound card not to work.  DO NOT udpate Raspbian until this is fixed.  I'll update the documentation here when it's OK to update Raspbian. 
+&#x1F6D1;   __**IMPORTANT**__:  As of late January, 2020, a bug in the Linux kernel used in the production release of Raspbian causes the Fe-Pi sound card not to work.  DO NOT udpate the Raspbian OS until this is fixed.  I'll update the documentation here when it's OK to update Raspbian. 
 
 
 1. Click __Raspberry > Hamradio > Update Pi and Ham Apps__ to run the Updater.  Check the application(s) you want to update or install and click __OK__.  Some installations take a very long time.  Don't install an application unless you understand what the application is for.  __*Installing an application does not configure it*__. Consult the documentation for that application for configuration instructions.
