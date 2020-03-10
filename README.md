@@ -1,6 +1,6 @@
 # Hampi Image
 
-Version 20191214.2
+Version 20191214.3
 
 Author: Steve Magnuson, AG7GN
 
@@ -141,9 +141,13 @@ This is __OPTIONAL__.  See [these instructions](https://github.com/AG7GN/images/
 
 Probably.  WATCH THIS SPACE.  I will post bug information and workarounds here.
 
+### Fe-Pi Sound Card 
+
+&#x1F6D1;   __**IMPORTANT**__:  As of late January, 2020, a bug in the Linux kernel used in the production release of Raspbian causes the Fe-Pi sound card not to work.  You can use this Hampi image as is, but after you install it, please DO NOT udpate the Raspbian OS until this bug is fixed.  I'll update the documentation here when it's OK to update Raspbian. 
+
 ### Fldigi Alert Sounds
 
-The released version of Fldigi (4.1.08 as of 12/14/2019) has a bug that causes it to crash if any of the __Test__ buttons are clicked or if any alert sounds are enabled in the __Configure > Sound Card > Alerts tab__ and then triggered.  The bug is related to Hampi's using PulseAudio for the radio sound interface and seems to be limited to Raspberry Pi computers.  This has been fixed in the alpha (test) versions of Fldigi and the next official release of Fldigi will also contain the fix.  
+Fldigi versions 4.1.08 and earlier have a bug that causes it to crash if any of the __Test__ buttons are clicked or if any alert sounds are enabled in the __Configure > Sound Card > Alerts tab__ and then triggered.  The bug is related to Hampi's using PulseAudio for the radio sound interface and seems to be limited to Raspberry Pi computers.  This has been fixed in version 4.1.09.  
 
 ## Annoyances
 
