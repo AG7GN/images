@@ -1,6 +1,6 @@
 # Hampi Image
 
-Version 20191214.3
+Version 20191214.4
 
 Author: Steve Magnuson, AG7GN
 
@@ -8,11 +8,11 @@ Author: Steve Magnuson, AG7GN
 
 ## Prerequisites
 
-- Raspberry Pi 3B, 3B+ or 4B (NOTE: I have only tested this image with the 3B and 3B+)
+- Raspberry Pi 3B, 3B+ or 4B
 - [Fe-Pi Audio Z Version 2 sound card](https://fe-pi.com/products/fe-pi-audio-z-v2)
 - Budd Churchward's ([WB7FHC](http://wb7fhc.com/index.html)) excellent DigiLink (REV C or later) or [Nexus DR-X](http://wb7fhc.com/intro.html) board
 - 16GB or greater MicroSD card (a 16GB card is more than adequate)
-- OPTIONAL: Speakers attached to Pi's built-in audio jack or a monitor with speakers if you want to monitor the radio's TX and/or RX
+- OPTIONAL: Speakers attached to Pi's built-in audio jack or an HDMI monitor with speakers if you want to monitor the radio's TX and/or RX
 
 This image uses the default configuration for user __pi__:  
 - User pi's home directory is __/home/pi__
@@ -23,7 +23,7 @@ The default password for user __pi__ is __changeme__.  __*PLEASE CHANGE THIS* as
 
 ## Features
 
-- Uses the latest stock Debian 10 (Buster) Raspberry Pi OS (aka "Raspbian")
+- Uses the latest official Debian 10 (Buster) Raspberry Pi OS (aka "Raspbian")
 
 - Fldigi, Flmsg, Flamp, Flarq are installed and minimally configured to use PulseAudio and 1 or 2 radios.  You must set your call sign and name, among other things, in the Fldigi and Flmsg settings.
 - Flrig is installed and configured for use with 1 or 2 radios, but it is not visible on the __Hamradio__ menu by default.  See the [Customize the Main Menu](#customize-the-main-menu) section for information on customizing the menu.
