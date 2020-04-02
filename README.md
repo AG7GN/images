@@ -157,7 +157,7 @@ Things that aren't really bugs, but irritating nevertheless will be documented h
 
 [Adjusting Audio Levels](https://github.com/AG7GN/images/blob/master/README-adjust_audio_levels.md)
 
-[Configuring and Using  Auto-HotSpot on Hampi](https://github.com/AG7GN/images/blob/master/README-auto_hotspot.md)
+[Configuring and Using Auto-HotSpot on Hampi](https://github.com/AG7GN/images/blob/master/README-auto_hotspot.md)
 
 [Operating Your Hampi "Headless"](https://github.com/AG7GN/images/blob/master/README-Using_VNC_to_Operate_Remotely.md)
 
