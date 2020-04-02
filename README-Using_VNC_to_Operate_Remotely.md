@@ -63,7 +63,7 @@ However, for the situation where the Pi and your client are on the same local ar
 		wlan0: Configured 192.168.1.123/24
 	In that case, you'd enter `192.168.1.123` into your client __VNC viewer's__ field.
 	
-1. Log in with username __Pi__ and whatever you set your Pi password to.  *This is NOT your VNC account password!*.
+1. Log in with username __pi__ and whatever you set your Pi password to.  *This is NOT your VNC account password!*.
 
 ### Customization
 
