@@ -1,6 +1,6 @@
 # Hampi Image
 
-Version 20191214.4
+Version 20191214.5
 
 Author: Steve Magnuson, AG7GN
 
@@ -8,7 +8,7 @@ Author: Steve Magnuson, AG7GN
 
 ## Prerequisites
 
-- Raspberry Pi 3B, 3B+ or 4B
+- Raspberry Pi 3B, 3B+ or 4B.  The 2GB version of the 4B is fine.
 - [Fe-Pi Audio Z Version 2 sound card](https://fe-pi.com/products/fe-pi-audio-z-v2)
 - Budd Churchward's ([WB7FHC](http://wb7fhc.com/index.html)) excellent DigiLink (REV C or later) or [Nexus DR-X](http://wb7fhc.com/intro.html) board
 - 16GB or greater MicroSD card (a 16GB card is more than adequate)
@@ -51,6 +51,21 @@ The default password for user __pi__ is __changeme__.  __*PLEASE CHANGE THIS* as
 - `tnc.sh` script has been updated to allow the user to specify the configuration file, overriding the default `$HOME/tnc.conf` file.
 - Desktop background now shows Nexus DR-X Logo.
 - Fixed a bug that made PulseAudio the default sound card whenever PulseAudio was updated.
+
+## GPIO Pins
+
+The Hampi image and the Nexus DR-X board use the following GPIO pins (BCM numbering):
+
+| GPIO Pin (BCM) | Purpose |
+| :---: | :---: |
+| 12 | PTT Left Radio |
+| 23 | PTT Right Radio |
+| 26 | Shutdown Button |
+| 24 | Shutdown Button LED |
+| 25 | Piano switch position 1 |
+| 13 | Piano switch position 2 |
+| 6 | Piano switch position 3 |
+| 5 | Piano switch position 4 |
 
 ## Installation
 
