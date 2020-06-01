@@ -1,10 +1,8 @@
-# Hampi Image
+# Nexus DR-X Pi Image
 
-Version 20191214.5
+Version 20200601.0
 
 Author: Steve Magnuson, AG7GN
-
-&#x1F6D1;   __**IMPORTANT**__:  As of late January, 2020, a bug in the Linux kernel used in the production release of Raspbian causes the Fe-Pi sound card not to work.  You can use this Hampi image as is, but after you install it, please DO NOT udpate the Raspbian OS until this bug is fixed.  I'll update the documentation here when it's OK to update Raspbian. 
 
 ## Prerequisites
 
@@ -12,7 +10,7 @@ Author: Steve Magnuson, AG7GN
 - [Fe-Pi Audio Z Version 2 sound card](https://fe-pi.com/products/fe-pi-audio-z-v2)
 - Budd Churchward's ([WB7FHC](http://wb7fhc.com/index.html)) excellent DigiLink (REV C or later) or [Nexus DR-X](http://wb7fhc.com/intro.html) board
 - 16GB or greater MicroSD card (a 16GB card is more than adequate)
-- OPTIONAL: Speakers attached to Pi's built-in audio jack or an HDMI monitor with speakers if you want to monitor the radio's TX and/or RX
+- OPTIONAL: Speakers attached to Pi's built-in audio jack or an HDMI monitor with speakers if you want to monitor the radio's TX and/or RX or use Fldigi's audio alert feature
 
 This image uses the default configuration for user __pi__:  
 - User pi's home directory is __/home/pi__
@@ -23,14 +21,14 @@ The default password for user __pi__ is __changeme__.  __*PLEASE CHANGE THIS* as
 
 ## Features
 
-- Uses the latest official Debian 10 (Buster) Raspberry Pi OS (aka "Raspbian")
+- Uses the latest stable Debian 10 (Buster) Raspberry Pi OS (aka "Raspbian")
 
 - Fldigi, Flmsg, Flamp, Flarq are installed and minimally configured to use PulseAudio and 1 or 2 radios.  You must set your call sign and name, among other things, in the Fldigi and Flmsg settings.
 - Flrig is installed and configured for use with 1 or 2 radios, but it is not visible on the __Hamradio__ menu by default.  See the [Customize the Main Menu](#customize-the-main-menu) section for information on customizing the menu.
 - Direwolf is installed and configured for use with PulseAudio with 1 or 2 radios.
 - You'll see __Configure RMS Gateway__ in the __Hamradio__ menu.  __Most users should ignore this menu item.__ This is only needed if you want this Pi to operate as an [RMS Gateway](https://www.winlink.org/tags/gateway).  
 
-	__*Note that operating an RMS Gateway requires that you obtain a "Sysop" account at winlink.org.*__ There are [other requirements](https://www.winlink.org/content/join_gateway_sysop_team_sysop_guidelines) as well.  If you operate the Pi as an RMS Gateway, I strongly recommend that you don't use the Pi for any other purpose.
+	__*Note that operating an RMS Gateway requires that you obtain a "Sysop" account at winlink.org.*__ There are [other requirements](https://www.winlink.org/content/join_gateway_sysop_team_sysop_guidelines) as well.  If you operate the Pi as an RMS Gateway, I recommend that you don't use the Pi for any other purpose.
 - There are menu items to toggle on and off TX and RX audio monitoring.  This only works if you have speakers connected to your Pi's built-in audio jack or your HDMI monitor has speakers.
 - Recognizes and enables a DS3231 Real Time Clock module, if installed.
 - A script is installed and enabled to restart or shutdown the Pi if the pushbutton on the board is pressed (DigiLink Rev __DS__ or [Nexus DR-X](http://wb7fhc.com/intro.html) boards only).  
@@ -39,22 +37,19 @@ The default password for user __pi__ is __changeme__.  __*PLEASE CHANGE THIS* as
 		- Note that newer versions of the Nexus DR-X have an LED that turns on when the button is pressed for 2 <= *t* < 5 and turns off again when the button continues to be pressed for *t* >= 5 to give you a visual cue as to when to release the button to reboot or shutdown.			  
 		- Older "DigiLink" boards (prior to the [Nexus DR-X](http://wb7fhc.com/intro.html)) must have the GPIO jumper installed in the '26' position for this to work.  If you want to use GPIO 13 or 6 instead (by moving the DigiLink GPIO jumper), you can edit the `/usr/local/bin/shutdown_button.py` file and set the `use_button` variable to 13 or 6 respectively.  The [Nexus DR-X](http://wb7fhc.com/intro.html) board is hard wired to GPIO 26 for this purpose - it cannot be changed.
 - Watchdog service is enabled.  If the Pi locks up, it *should* automatically reboot within 10 seconds.
-- Includes a GUI called the "Updater" to make it easier to install and update various ham applications.
+- Includes a GUI called the "Updater" (__Raspberry > Hamradio > Update Pi and Ham Software__) to make it easier to install and update various ham applications.
 - Supports bootup user scripting based on the lever positions of the piano switch on the [Nexus DR-X](http://wb7fhc.com/intro.html) board.  A sample user script is in `/home/pi/pianoX.sh.example`.  Here's more information about [how it works](https://github.com/AG7GN/hampi-utilities/blob/master/README.md#check-piano-script).
 
 ## New in This Version
 
 - Latest OS and Raspberry Pi application updates installed.
-- The `initialize-pi.sh` script now automatically expands the filesystem on first boot.
-- Latest [Kenwood TM-D710G/TM-V71A](https://github.com/AG7GN/kenwood) radio control script installed.
-- Trim scripts, which are used to keep various Fldigi/Flmsg/Flrig log files to a reasonable size, have all been modified to not execute if the fl* app is running.  These scripts are run automatically when you select Fldigi/Flmsg/Flrig from the __Hamradio__ menu.  They are executed just before starting the Fl* app when Fl* app is launched from the Hamradio menu.
-- `tnc.sh` script has been updated to allow the user to specify the configuration file, overriding the default `$HOME/tnc.conf` file.
-- Desktop background now shows Nexus DR-X Logo.
-- Fixed a bug that made PulseAudio the default sound card whenever PulseAudio was updated.
+- This image has the Raspberry Pi 1.20200512-2 kernel (4.19.118-v7l+ #1311), which includes the fix for the Fe-Pi bug.
+- Fldigi and Flmsg have been updated to the latest versions.
+- GUI for configuring and monitoring Direwolf as a TNC and pat as a Winlink email client has been added.
 
 ## GPIO Pins
 
-The Hampi image and the Nexus DR-X board use the following GPIO pins (BCM numbering):
+The Nexus DR-X Pi image and the Nexus DR-X board use the following GPIO pins (BCM numbering):
 
 | GPIO Pin (BCM) | Purpose |
 | :---: | :---: |
@@ -70,9 +65,9 @@ The Hampi image and the Nexus DR-X board use the following GPIO pins (BCM number
 ## Installation
 
 1. Assemble the DigiLink or [Nexus DR-X](http://wb7fhc.com/intro.html) board and install it and the Fe-Pi audio board onto the Pi.
-1. The Hampi image is larger than the allowed file size on GitHub, so I store the image on a Google Drive.  The Hampi image is approximately 3.7 GB.  
-	- [Access my Google Drive](https://drive.google.com/open?id=1qZRAePj7dGRNWPNw44RKKm8SvmTg81ru) 
-	- Click the __Download__ button when prompted with the "Whoops! There was a problem with the preview." window.
+1. The Nexus DR-X Pi image is larger than the allowed file size on GitHub, so I store the image on a Google Drive.  The Nexus DR-X Pi image is approximately 3.7 GB.  
+	- [Access my Google Drive](https://drive.google.com/file/d/1cbXupa7deuMIiCyukrHAm9TtYkTFnOyp/view?usp=sharing) 
+	- Click the __Download__ button when prompted with "Couldn't preview the file...".
 1. Burn the image to your SD card by following these ["Writing an image to the SD card"](https://www.raspberrypi.org/documentation/installation/installing-images/)  instructions.  Since you've already downloaded the image in the previous step, ignore the "Download the image" section on that web page.
 1. Insert the MicroSD card into the Pi and power it on.
 1. The easiest way to get your Pi set up on first boot-up is to connect it to a keyboard/video/mouse (KVM).  However, there is an alternative way to access your new Pi without a KVM, even before you've configured it:  
@@ -100,22 +95,18 @@ __*PLEASE* DO THESE STEPS before seeking help!__
 
 1. Click __Yes__ if prompted to reboot.
 
-1. When the desktop appears, run the Updater: Click __Raspberry > Hamradio > Update Pi and Ham Apps__, then, *only if prompted to do so*, re-run __Raspberry > Hamradio > Update Pi and Ham Apps__.  <s>Check __Raspbian OS and Apps__ and click __OK__.  Reboot if prompted.</s>
-
-## <s>Update Raspbian OS and</s> Update/Install Ham Applications
-&#x1F6D1;   __**IMPORTANT**__:  As of late January, 2020, a bug in the Linux kernel used in the production release of Raspbian causes the Fe-Pi sound card not to work.  DO NOT udpate the Raspbian OS until this is fixed.  I'll update the documentation here when it's OK to update Raspbian. 
-
+1. When the desktop appears, run the Updater: Click __Raspberry > Hamradio > Update Pi and Ham Apps__, then, *only if prompted to do so*, re-run __Raspberry > Hamradio > Update Pi and Ham Apps__.  Check __Raspbian OS and Apps__ and click __OK__.  Reboot if prompted.
 
 1. Click __Raspberry > Hamradio > Update Pi and Ham Apps__ to run the Updater.  Check the application(s) you want to update or install and click __OK__.  Some installations take a very long time.  Don't install an application unless you understand what the application is for.  __*Installing an application does not configure it*__. Consult the documentation for that application for configuration instructions.
 
 	You can double-click on the app name in the Updater to obtain information about that app.  This will open the Chromium browser and and take you to the website for that app.
 
-1. <s>As you already know from the [First Time Boot Instructions](#first-time-boot-instructions), checking the __Raspbian OS and Apps__ item in the Updater will check for and install OS updates.  This is equivalent to running the following commands in a Terminal:
+1. As you already know from the [First Time Boot Instructions](#first-time-boot-instructions), checking the __Raspbian OS and Apps__ item in the Updater will check for and install OS updates.  This is equivalent to running the following commands in a Terminal:
 
 		sudo apt update
-		sudo apt upgrade -y
+		sudo apt full-upgrade -y
 
-	I recommend checking for updates for __Raspbian OS and Apps__ about once a week.</s>
+	I recommend checking for updates for __Raspbian OS and Apps__ about once a week.
 
 ## Customize the Main Menu
 
@@ -144,9 +135,11 @@ User pi's home folder contains 2 Direwolf configuration files: `/home/pi/direwol
 
 If you want to use this Pi as an APRS Digipeater and/or iGate, use the [`/usr/local/bin/tnc.sh`](https://github.com/AG7GN/hampi-utilities/blob/master/README.md#tnc-script) and associated [`/usr/local/bin/watchdog-tnc.sh`](https://github.com/AG7GN/hampi-utilities/blob/master/README.md#watchdog-tnc-script) scripts. 
 
-`tnc.sh` also works with `pat` and `arim`, which you can install using the Updater: __Raspberry > Hamradio > Update Pi and Ham Apps__.  `tnc.sh` creates on on-the-fly direwolf configuration file depending on what mode you want to use.  It will also allocate a `pty` for `pat` (`pat` can't use KISS).  
+`tnc.sh` also works with `pat` and `arim`, which you can install using the Updater: __Raspberry > Hamradio > Update Pi and Ham Apps__.  `tnc.sh` creates on on-the-fly direwolf configuration file depending on what mode you want to use.  It will also allocate a `pty` for `pat` (`pat` can't use KISS). 
 
 The configuration files for `tnc.sh` are in [`/home/pi/tnc-left.conf`](https://github.com/AG7GN/hampi-utilities/blob/master/README.md#tnc-left-tnc-right-configuration-files) and [`/home/pi/tnc-right.conf`](https://github.com/AG7GN/hampi-utilities/blob/master/README.md#tnc-left-tnc-right-configuration-files).  You can also supply the name of a configuration file as an argument to `tnc.sh`.  See [the tnc.sh documentation](https://github.com/AG7GN/hampi-utilities/blob/master/README.md#tnc-script) for more information.
+
+Another option: If you want to use Direwolf as an AX25 TNC and the pat Winlink client, you can run __Raspberry > Hamradio > Direwolf TNC and pat GUI__. This application will allow you to configure Direwolf and pat using a GUI rather than editing text files. You can also monitor Direwolf and pat events. 
 
 ## Operating Your Pi "Headless" (without a keyboard, monitor or mouse)
 
@@ -156,13 +149,11 @@ This is __OPTIONAL__.  See [these instructions](https://github.com/AG7GN/images/
 
 Probably.  WATCH THIS SPACE.  I will post bug information and workarounds here.
 
-### Fe-Pi Sound Card 
+### Fldigi Audio Alerts
 
-&#x1F6D1;   __**IMPORTANT**__:  As of late January, 2020, a bug in the Linux kernel used in the production release of Raspbian causes the Fe-Pi sound card not to work.  You can use this Hampi image as is, but after you install it, please DO NOT udpate the Raspbian OS until this bug is fixed.  I'll update the documentation here when it's OK to update Raspbian. 
+Fldigi versions 4.1.08 and earlier have a bug that causes it to crash if any of the __Test__ buttons are clicked or if any alert sounds are enabled in the __Configure > Sound Card > Alerts tab__ and then triggered.  The bug is related to Nexus DR-X Pi's using PulseAudio for the radio sound interface and seems to be limited to Raspberry Pi computers.  This has been fixed in version 4.1.09.
 
-### Fldigi Alert Sounds
-
-Fldigi versions 4.1.08 and earlier have a bug that causes it to crash if any of the __Test__ buttons are clicked or if any alert sounds are enabled in the __Configure > Sound Card > Alerts tab__ and then triggered.  The bug is related to Hampi's using PulseAudio for the radio sound interface and seems to be limited to Raspberry Pi computers.  This has been fixed in version 4.1.09.  
+Another bug, in the current version of Fldigi and present since Fldigi version 4.1.09 and possible earlier, prevents a second instance of Fldigi from running if both instances have Alert sounds enabled and are set to use the same audio alert sound card.  This is under investigation by the Fldigi developer.  
 
 ## Annoyances
 
