@@ -1,6 +1,6 @@
 # Nexus DR-X Pi Image
 
-Version 20200601.0
+Version 20200601.1
 
 Author: Steve Magnuson, AG7GN
 
@@ -123,11 +123,31 @@ FYI: If you make changes to a particular menu item, a new desktop file will be c
 1. Click the __Up__ or __Down__ buttons to move the selected item up or down in the menu list.  Add or remove separators in the menu list as desired.
 1. Click __OK__ (*never* click __Cancel__!) when done.
 
-## Customize the Fldigi Apps
+## Fldigi Notes
+
+### Customize the Fldigi Apps
 
 1. In Fldgi: __Configure > UI > Operator__.  Note you have to do this for both the __Fldigi (Left Radio)__ *and* __Fldigi (Right Radio)__ menu items.
 
 1. In Flmsg: __Config > Personal__ tab.  Note that you have to do this for both the __Flmsg (Left Radio)__ *and* __Flmsg (Right Radio)__ menu items.
+
+### Out of Memory Problem when Building Fldigi
+
+The Nexus DR-X Pi Image is based on Debian Buster.  Earlier versions were based on Debian Stretch.  I have experienced an out of memory problem with older Stretch OS Raspberry Pis when building newer (4.1.x and later) versions of Fldigi.  You may see `virtual memory exhausted: Cannot allocate memory` errors or the Pi might just lock up or reboot.  If you encounter this problem, here's the fix:
+
+1. As root (sudo), edit the `/etc/dphys-swapfile` file.
+1. Change this line:
+
+		CONF_SWAPSIZE=100
+
+	to:
+
+		CONF_SWAPSIZE=1024
+1. Save the file.
+1. Restart the swapfile service:
+
+		sudo systemctl restart dphys-swapfile
+1. Re-do the build. Probably a good idea to do `make clean` first.
 
 ## Direwolf Notes
 
