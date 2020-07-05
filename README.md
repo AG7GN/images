@@ -1,6 +1,6 @@
 # Nexus DR-X Pi Image
 
-Version 20200601.1
+Version 20200601.2
 
 Author: Steve Magnuson, AG7GN
 
@@ -164,6 +164,16 @@ Another option: If you want to use Direwolf as an AX25 TNC and the pat Winlink c
 ## Operating Your Pi "Headless" (without a keyboard, monitor or mouse)
 
 This is __OPTIONAL__.  See [these instructions](https://github.com/AG7GN/images/blob/master/README-Using_VNC_to_Operate_Remotely.md).
+
+## Backing up your Pi via Secure Shell (SSH) over the network
+
+If you have another Linux host, you can use the `ssh-image.sh` script in this repository to make an image of a running Raspberry Pi using an SSH connection.  You'll need the following for this to work:
+
+- The `ssh-image.sh` script in this repository.
+- The Winlink client [pat]() and the [patmail.sh]() script if you want the `ssh-image.sh` script to automatically email you with the results.  This is handy of you rung the script via cron.
+- SSH keypair with a passphrase-less private key (not recommended) or a keychain (recommended) on your Linux host.
+
+See the description at the beginning of the `ssh-image.sh` script for details.
 
 ## Bugs
 
