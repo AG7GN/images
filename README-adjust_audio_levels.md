@@ -12,7 +12,7 @@ These settings are designed to get you somewhat close to the right audio levels.
 
 1. Press __F6__ and select __Fe-Pi Audio__ from the list.  
 1. Press __F5__ to view both Playback and Capture settings. Move the left and right arrow keys to highlight the setting you wish to change.
-1. Some controls are in stereo.  The up and down arrows change the levels of both left channels (for the left radio) and right (for the right radio).
+1. Some controls are in stereo.  The up and down arrows change the levels of both left (for the left radio) and right (for the right radio) channels.
       
 	Pressing __Q__ or __E__ increases the just the left or right channel (radio) level respectively. 
 	
