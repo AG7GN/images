@@ -1,32 +1,68 @@
 ## Adjust the Audio Levels
 
-Version: 20191214
+Version: 20200803
 
 Author: Steve Magnuson, AG7GN
 
 These settings are designed to get you somewhat close to the right audio levels.  Some adjustment will be necessary as every radio is different, and different ham radio applications have different audio level requirements.  
 
-__IMPORTANT__: While in the __Audio Device Settings__ app, __*DO NOT*__ click the __Make Default__ button!  That makes the Fe-Pi your default audio interface, which you do not want to do.
-1. Click __Raspberry > Hamradio > Audio Device Settings__.  
-1. Select __Fe-Pi Audio__ from __Sound card:__ the drop-down.  
-1. Select the __Playback__ tab and adjust __Lineout__ to 100% (all the way to the top).  Adjust the PCM so it's about 80% of the way to the top.  Note that you can click the button with the __chain links__ so you can independently adjust the left channel (left radio) and right channel (right radio) TX levels.
-1. Click the __Switches__ tab and check the __Capture Attenuate Switch (-6dB)__.
-1. Click the __Capture__ tab.  Adjust the __Capture__ setting so no more than 10% of the way up from the bottom.  Again, click the button with the __chain links__ so you can independently adjust the left channel (left radio) and right channel (right radio) RX levels.
-1. Click __OK__ when done.  
-
-	Alternatively, all of these audio settings can be done in a Terminal window as well.  Open a terminal and run:
+1. Click __Raspberry > Accessories > Terminal__ to open a Terminal window. Run this command:
 
 		alsamixer
-		
-	Select __Fe-Pi__ as the sound interface and press __F5__ to show both the Capture and Playback settings.
-1. There are PulseAudio controls under __Raspberry > Sound & Video__.  I recommend leaving those settings as-is unless you are very familiar with configuring PulseAudio.
 
-W6AF has published a [guide to setting FM audio levels](https://w6af.com/local-radio-activity/digital-modes/setting-up-sound-levels-for-fm-digital-operation/) that seems to work well.  
+1. Press __F6__ and select __Fe-Pi Audio__ from the list.  
+1. Press __F5__ to view both Playback and Capture settings. Move the left and right arrow keys to highlight the setting you wish to change.
+1. Some controls are in stereo.  The up and down arrows change the levels of both left channels (for the left radio) and right (for the right radio).
+      
+	Pressing __Q__ or __E__ increases the just the left or right channel (radio) level respectively. 
+	
+	Pressing __Z__ or __C__ decreases the just the left or right channel (radio) level respectively.
+
+	For the Fe-Pi, these levels are good starting points, but you'll likely have to adjust them for your radio(s):
+
+		Headphone: _00_   
+		Headphone Mux: _DAC_   
+		Headphone Playback ZC: _00_  
+		PCM: _89_ (left), _89_ (right)    
+		Lineout: _100_ (left), _100_ (right)   
+		Mic: _0_   
+		Mic: _0_  
+		Capture: _13_ (left), _13_ (right)  
+		Capture Attenuate Switch: _00_  
+		Capture Mux: _LINE_IN_   
+
+	Leave the remaining settings as they are.  
+
+	These are the settings you'll want to tweak while running Fldigi and/or direwolf: 
+
+	__Capture__ (for audio coming from the radio into the Pi - radio RX)  
+	__PCM__ (for audio coming from the Pi to the radio - radio TX)
+
+	W6AF has published a [guide to setting FM audio levels](https://w6af.com/local-radio-activity/digital-modes/setting-up-sound-levels-for-fm-digital-operation/) using Fldigi that seems to work well.  
 IMPORTANT: W6AF's instructions assume that you have the Fldigi waterfall settings set to default values, which are:
-- Upper signal level (db): 0 
-- Signal range (db): 60
-- Tx level attenuator (db): -3
+	- Upper signal level (db): 0 
+	- Signal range (db): 60
+	- Tx level attenuator (db): -3
 
-The above 3 settings are at the bottom of the Fldigi window.
+	The above 3 settings are at the bottom of the Fldigi window.
+
+	Once you're happy with your audio settings, press __Esc__ to exit alsamixer.  
+
+1. Save Audio Settings (usually not required)
+	
+	These audio settings should save automatically, but for good measure you can store them again by running:
+
+		sudo alsactl store
+
+	If you want to save different audio level settings for different scenarios, 
+you can run this command to save the settings (choose your own file name/location):
+
+		sudo alsactl --file ~/mysoundsettings1.state store
+
+	...and this command to restore those settings:
+
+		sudo alsactl --file ~/mysoundsettings1.state restore
+	
+	
 
 
