@@ -20,20 +20,20 @@ These settings are designed to get you somewhat close to the right audio levels.
 
 	For the Fe-Pi, these levels are good starting points, but you'll likely have to adjust them for your radio(s):
 
-		Headphone: _00_   
-		Headphone Mux: _DAC_   
-		Headphone Playback ZC: _00_  
-		PCM: _89_ (left), _89_ (right)    
-		Lineout: _100_ (left), _100_ (right)   
-		Mic: _0_   
-		Mic: _0_  
-		Capture: _13_ (left), _13_ (right)  
-		Capture Attenuate Switch: _00_  
-		Capture Mux: _LINE_IN_   
+	Headphone: _00_   
+	Headphone Mux: _DAC_   
+	Headphone Playback ZC: _00_  
+	PCM: _89_ (left), _89_ (right)    
+	Lineout: _100_ (left), _100_ (right)   
+	Mic: _0_   
+	Mic: _0_  
+	Capture: _13_ (left), _13_ (right)  
+	Capture Attenuate Switch: _00_  
+	Capture Mux: _LINE_IN_   
 
 	Leave the remaining settings as they are.  
 
-	These are the settings you'll want to tweak while running Fldigi and/or direwolf: 
+	Using the above settings as a baseline, these are the settings you'll want to tweak further while running Fldigi and/or direwolf: 
 
 	__Capture__ (for audio coming from the radio into the Pi - radio RX)  
 	__PCM__ (for audio coming from the Pi to the radio - radio TX)
@@ -44,7 +44,7 @@ IMPORTANT: W6AF's instructions assume that you have the Fldigi waterfall setting
 	- Signal range (db): 60
 	- Tx level attenuator (db): -3
 
-	The above 3 settings are at the bottom of the Fldigi window.
+	These 3 settings are at the bottom of the Fldigi window.
 
 	Once you're happy with your audio settings, press __Esc__ to exit alsamixer.  
 
