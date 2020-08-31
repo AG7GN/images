@@ -47,7 +47,7 @@ The default password for user __pi__ is __changeme__.  __*PLEASE CHANGE THIS* as
 - Latest OS and Raspberry Pi application updates.
 - Fldigi, Flrig and Flmsg have been updated to the latest versions.
 - GUIs for configuring and monitoring Direwolf APRS, and ARDOP + pat have been added.
-- `tnc.sh` script and associated configuration files `tnc-left.conf` and `tnc-right.conf` have been depricated and removed from the Hamradio menu. The same with the `direwolf-left.conf` and `direwolf-right.conf` files. Use the __Direwolf APRS GUI__ or __Direwolf TNC and pat GUI__ instead.
+- `tnc.sh` script and associated configuration files `tnc-left.conf` and `tnc-right.conf` have been deprecated and removed from the Hamradio menu. The same with the `direwolf-left.conf` and `direwolf-right.conf` files. Use the __Direwolf APRS GUI__ or __Direwolf TNC and pat GUI__ instead.
 - New __RMS Gateway Manager__ GUI has been added for those interested in running a Winlink Gateway.
 - "Rebranded" from __Hampi__ to __Nexus__ to avoid confusion with unrelated Raspberry Pi project called "HamPi".
 
