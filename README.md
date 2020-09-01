@@ -114,9 +114,11 @@ __*PLEASE* DO THESE STEPS before seeking help!__
 
 ## Customize the Main Menu
 
-This is strictly __OPTIONAL__ - only if you want to change what appears on the menu or the menu layout.
+This is __OPTIONAL__ - only if you want to change what appears on the menu or the menu layout.
 
 __WARNING:__ There is a long time bug in the Main Menu Editor that resets the menu settings to default when you click the __Cancel__ button.  So, *NEVER* click the __Cancel__ button!  Even if you made no changes, click __OK__ instead.
+
+Also, be aware that if a menu, like the __Hamradio__ menu, has too many enabled items in it such that the menu grows beyond the vertical dimensions of the screen, those items at the end of the list won't appear in the menu.
 
 FYI: If you make changes (other than it's placement in the menu) to a particular menu item, a new desktop file will be created in `/home/pi/.local/share/applications` and that file will be used to populate the menu even if there is a `.desktop` file with the same name in the default location `/usr/local/share/applications`. 
 
@@ -126,6 +128,8 @@ FYI: If you make changes (other than it's placement in the menu) to a particular
 1. Check or uncheck the applications listed in the center pane as desired.
 1. Click the __Up__ or __Down__ buttons to move the selected item up or down in the menu list.  Add or remove separators in the menu list as desired.
 1. Click __OK__ (*never* click __Cancel__!) when done.
+
+If you delete a `*.desktop` file from `/home/pi/.local/share/applications` or `/usr/local/share/applications`, it won't appear as an available selection in the Main Menu Editor. Simply unchecking an item in the editor does not delete the `*.desktop` file.
 
 ## Fldigi Notes
 
