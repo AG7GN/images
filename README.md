@@ -1,6 +1,6 @@
 # Nexus DR-X Pi Image
 
-Version 20200901
+Version 20201028
 
 Author: Steve Magnuson, AG7GN
 
@@ -77,7 +77,7 @@ The Nexus DR-X Pi image and the Nexus DR-X board use the following GPIO pins (BC
 1. The easiest way to get your Pi set up on first boot-up is to connect it to a keyboard/video/mouse (KVM).  However, there is an alternative way to access your new Pi without a KVM, even before you've configured it:  
 
 	- By default, the [VNC server](https://github.com/AG7GN/images/blob/master/README-Using_VNC_to_Operate_Remotely.md) is enabled on the Pi.  If you plug your Pi into an ethernet port on your home network and [install the VNC Viewer application](https://www.realvnc.com/en/connect/download/viewer/) on another PC or Mac or Chromebook also on your home network, you can connect to and control your new Pi using VNC Viewer from that PC or Mac or Chromebook.  
-	- Once the Pi has fully booted up, open VNC Viewer on your other computer and enter `hampi.local` into the address bar at the top of the VNC Viewer window, then press __Enter__.  Follow the instructions and login with Username __pi__ and the default password __changeme__.  
+	- Once the Pi has fully booted up, open VNC Viewer on your other computer and enter `nexus.local` into the address bar at the top of the VNC Viewer window, then press __Enter__.  Follow the instructions and login with Username __pi__ and the default password __changeme__.  
 	
 ## First Time Boot Instructions
 
