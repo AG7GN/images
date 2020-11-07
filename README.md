@@ -1,6 +1,6 @@
 # Nexus DR-X Pi Image
 
-Version 20201028
+Version 20201107
 
 Author: Steve Magnuson, AG7GN
 
@@ -72,6 +72,24 @@ The Nexus DR-X Pi image and the Nexus DR-X board use the following GPIO pins (BC
 1. The Nexus DR-X Pi image is larger than the allowed file size on GitHub, so I store the image on a Google Drive.  The Nexus DR-X Pi image is approximately 3.7 GB.  
 	- [Access my Google Drive](https://drive.google.com/file/d/1-CofY9PQ8WndyqVseGCbQC2g8dPsh6v_/view?usp=sharing) 
 	- Click the __Download__ button when prompted with "Couldn't preview the file...".
+1. [OPTIONAL] After you've downloaded the ZIP file, verify it's integrity by running a checksum calculator program. This will tell you that you've downloaded the image that I uploaded. The SHA256 checksum for the above image is:
+
+		22562bfb00185e6a3af3a1a27bdae77462921fb1cb6b9aab63851c1b79cab0ac
+	
+	- If you downloaded the above ZIP file to a Mac, run this command in Terminal in the folder where you downloaded the file:
+	
+			shasum -a 256 nexusdrxpi20200901.zip
+		
+	- If you downloaded the above ZIP file to a Linux PC, run this command in Terminal in the folder where you downloaded the file:
+	
+			sha256sum nexusdrxpi20200901.zip
+			
+	- If you downloaded the above ZIP file to a Windows 10 PC, run this command in the Command Prompt window in the folder where you downloaded the file:
+	
+			CertUtil -hashfile nexusdrxpi20200901.zip SHA256
+			
+	In all cases, the checksum string returned by your command should match the checksum string above. Thanks to David Ranch, KI6ZHD, for his suggestion to add this step to the installation instructions.
+
 1. Burn the image to your SD card by following these ["Writing an image to the SD card"](https://www.raspberrypi.org/documentation/installation/installing-images/)  instructions.  Since you've already downloaded the image in the previous step, ignore the "Download the image" section on that web page.
 1. Insert the MicroSD card into the Pi and power it on.
 1. The easiest way to get your Pi set up on first boot-up is to connect it to a keyboard/video/mouse (KVM).  However, there is an alternative way to access your new Pi without a KVM, even before you've configured it:  
@@ -146,15 +164,15 @@ If you delete a `*.desktop` file from `/home/pi/.local/share/applications` or `/
 >1. As root (sudo), edit the `/etc/dphys-swapfile` file.
 >1. Change this line:
 >
->		CONF_SWAPSIZE=100
+>			CONF_SWAPSIZE=100
 >
 >	to:
 >
->		CONF_SWAPSIZE=1024
+>			CONF_SWAPSIZE=1024
 >1. Save the file.
 >1. Restart the swapfile service:
 >
->		sudo systemctl restart dphys-swapfile
+>			sudo systemctl restart dphys-swapfile
 >1. Re-do the build. Probably a good idea to do `make clean` first.
 
 ## Direwolf Notes
