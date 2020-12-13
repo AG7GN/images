@@ -1,6 +1,6 @@
 # Nexus DR-X Pi Image
 
-Version 20201212.0
+Version 20201107
 
 Author: Steve Magnuson, AG7GN
 
@@ -9,8 +9,8 @@ Author: Steve Magnuson, AG7GN
 - Raspberry Pi 3B, 3B+ or 4B.  The 2GB version of the 4B is fine.
 - [Fe-Pi Audio Z Version 2 sound card](https://fe-pi.com/products/fe-pi-audio-z-v2)
 - Budd Churchward's ([WB7FHC](http://wb7fhc.com/index.html)) excellent DigiLink (REV C or later) or [Nexus DR-X](http://wb7fhc.com/intro.html) board
-- 16GB or greater MicroSD card ([a 32GB card is best](https://raspberryinsider.com/what-the-largest-micro-sd-card-supported-the-by-raspberry-pi/)). I've found that the [SanDisk 32GB Extreme PLUS microSDHC](https://www.officedepot.com/a/products/225929/SanDisk-Extreme-PLUS-microSDHC-Memory-Card/) is very fast and reliable.
-- OPTIONAL: Speakers attached to Pi's built-in audio jack or an HDMI monitor with speakers if you want to monitor the radio's TX and/or RX or use Fldigi's audio alerts feature
+- 16GB or greater MicroSD card (a 16GB or 32GB card is best)
+- OPTIONAL: Speakers attached to Pi's built-in audio jack or an HDMI monitor with speakers if you want to monitor the radio's TX and/or RX or use Fldigi's audio alert feature
 
 This image uses the default configuration for user __pi__:  
 - User pi's home directory is __/home/pi__
@@ -23,7 +23,7 @@ The default password for user __pi__ is __changeme__.  __*PLEASE CHANGE THIS* as
 
 ## Features
 
-- Uses the latest stable Debian 10 (Buster 10.6) Raspberry Pi OS (aka "Raspbian")
+- Uses the latest stable Debian 10 (Buster) Raspberry Pi OS (aka "Raspbian")
 
 - Fldigi, Flmsg, Flamp, Flarq are installed and minimally configured to use PulseAudio and 1 or 2 radios.  You must set your call sign and name, among other things, in the Fldigi and Flmsg settings.
 - Flrig is installed and configured for use with 1 or 2 radios, but it is not visible on the __Hamradio__ menu by default.  See the [Customize the Main Menu](#customize-the-main-menu) section for information on customizing the menu.
@@ -39,33 +39,18 @@ The default password for user __pi__ is __changeme__.  __*PLEASE CHANGE THIS* as
 		- Note that newer versions of the Nexus DR-X have an LED that turns on when the button is pressed for 2 <= *t* < 5 and turns off again when the button continues to be pressed for *t* >= 5 to give you a visual cue as to when to release the button to reboot or shutdown.			  
 		- Older "DigiLink" boards (prior to the [Nexus DR-X](http://wb7fhc.com/intro.html)) must have the GPIO jumper installed in the '26' position for this to work.  If you want to use GPIO 13 or 6 instead (by moving the DigiLink GPIO jumper), you can edit the `/usr/local/bin/shutdown_button.py` file and set the `use_button` variable to 13 or 6 respectively.  The [Nexus DR-X](http://wb7fhc.com/intro.html) board is hard wired to GPIO 26 for this purpose - it cannot be changed.
 - Watchdog service is enabled.  If the Pi locks up, it *should* automatically reboot within 10 seconds.
-- Includes a GUI called the "Updater" (__Raspberry > Hamradio > Nexus Updater__) to make it easier to install and update various ham applications.
+- Includes a GUI called the "Updater" (__Raspberry > Hamradio > Update Pi and Ham Software__) to make it easier to install and update various ham applications.
 - Supports bootup user scripting based on the lever positions of the piano switch on the [Nexus DR-X](http://wb7fhc.com/intro.html) board.  A sample user script is in `/home/pi/pianoX.sh.example`.  Here's more information about [how it works](https://github.com/AG7GN/hampi-utilities/blob/master/README.md#check-piano-script).
 
 ## New in This Version
 
-- Latest OS (Buster 10.6) and Raspberry Pi application updates.
-- Buster 10.6 has a new easy to use printer manager in __Rapsberry > Preferences > Print Settings__. The __Manage Printers__ menu item is still there and opens the CUPS web interface. __Print Settings__ is easier to work with, though. 
-- Incorporates Fe-Pi sound card in Raspbian's new embrace of [PulseAudio](https://github.com/AG7GN/nexus-audio/blob/main/README.md).
-- Fldigi, Flrig, Flmsg, Direwolf and pat have been updated to the latest versions.
-- A new Updater, the __Nexus Updater__, has replaced __Update Pi and Ham Apps__.
-- These apps are now available for installation in the __Nexus Updater__:
+- Latest OS and Raspberry Pi application updates.
+- Fldigi, Flrig and Flmsg have been updated to the latest versions.
+- GUIs for configuring and monitoring Direwolf APRS, and ARDOP + pat have been added.
+- `tnc.sh` script and associated configuration files `tnc-left.conf` and `tnc-right.conf` have been deprecated and removed from the Hamradio menu. The same with the `direwolf-left.conf` and `direwolf-right.conf` files. Use the __Direwolf APRS GUI__ or __Direwolf TNC and pat GUI__ instead.
+- New __RMS Gateway Manager__ GUI has been added for those interested in running a Winlink Gateway.
+- "Rebranded" from __Hampi__ to __Nexus__ to avoid confusion with unrelated Raspberry Pi project called "HamPi".
 
-	- CQRLog
-	- Gpredict
-	- Linpac
-	- QSSTV
-	- Uronode
-	- YAAC
-	
-	*Important:* Note that I have not tested these applications beyond making sure they install on the Nexus!  Also, the Updater only installs applications. It does not configure them for you. Consult the documentation for the app for information on configuring it.
-	
-	If you use an application that can use PulseAudio, start your application like this:
-	
-		PULSE_SINK=fepi-playback PULSE_SOURCE=fepi-capture name-of-application [arguments]
-
-	This will tell PulseAudio to use the Fe-Pi card for the sound for this application.
-	
 ## GPIO Pins
 
 The Nexus DR-X Pi image and the Nexus DR-X board use the following GPIO pins (BCM numbering):
@@ -81,45 +66,27 @@ The Nexus DR-X Pi image and the Nexus DR-X board use the following GPIO pins (BC
 | 6 | Piano switch position 3 |
 | 5 | Piano switch position 4 |
 
-You can test PTT operation using `raspi-gpio` in the Terminal. For example, here's how to test PTT on the left radio (GPIO BCM pin 12):
-
-- Set BCM pin 12 as output:
-
-		raspi-gpio set 12 op
-		
-- Set BCM pin 12 state to high (PTT ON):
-
-		raspi-gpio set 12 dh
-
-- Set BCM pin 12 state to low (PTT OFF):
-
-		raspi-gpio set 12 dl
-
-These commands can also be used in scripts and in certain ham radio applications that allow scripting to control PTT.
-
 ## Installation
 
-- __*Attention Current Nexus Users:*__ If you're already running an earlier version of the Nexus image, you can save the contents of your home folder on that image to a USB stick/drive. Once you're running this new image, restore the contents of your home folder from your USB stick/drive to the new image. See __Raspberry > Hamradio > Backup/Restore Home Folder__ for information. This allows you to have your Fldigi setup, macros, etc, and other ham apps configuration on your new image without having to configure everything again.
-
 1. Assemble the DigiLink or [Nexus DR-X](http://wb7fhc.com/intro.html) board and install it and the Fe-Pi audio board onto the Pi.
-1. The Nexus DR-X Pi image is larger than the allowed file size on GitHub, so I store the image on a Google Drive.  The Nexus DR-X Pi image is approximately 3.2 GB.  
-	- [Access my Google Drive](https://drive.google.com/file/d/1gLUDK7K5ZHgNC5dPZbX27F-Rvef14tAK/view?usp=sharing) 
-	- Click the __Download__ button when prompted with "Couldn't preview file...".
+1. The Nexus DR-X Pi image is larger than the allowed file size on GitHub, so I store the image on a Google Drive.  The Nexus DR-X Pi image is approximately 3.7 GB.  
+	- [Access my Google Drive](https://drive.google.com/file/d/1-CofY9PQ8WndyqVseGCbQC2g8dPsh6v_/view?usp=sharing) 
+	- Click the __Download__ button when prompted with "Couldn't preview the file...".
 1. [OPTIONAL] After you've downloaded the ZIP file, verify it's integrity by running a checksum calculator program. This will tell you that you've downloaded the image that I uploaded. The SHA256 checksum for the above image is:
 
-		f56acaa11a456f20a7151cbe9d74bfcf34a9737b602651ec67fd98003953932f
+		22562bfb00185e6a3af3a1a27bdae77462921fb1cb6b9aab63851c1b79cab0ac
 	
 	- If you downloaded the above ZIP file to a Mac, run this command in Terminal in the folder where you downloaded the file:
 	
-			shasum -a 256 nexusdrxpi20201212.zip
+			shasum -a 256 nexusdrxpi20200901.zip
 		
 	- If you downloaded the above ZIP file to a Linux PC, run this command in Terminal in the folder where you downloaded the file:
 	
-			sha256sum nexusdrxpi20201212.zip
+			sha256sum nexusdrxpi20200901.zip
 			
 	- If you downloaded the above ZIP file to a Windows 10 PC, run this command in the Command Prompt window in the folder where you downloaded the file:
 	
-			CertUtil -hashfile nexusdrxpi20201212.zip SHA256
+			CertUtil -hashfile nexusdrxpi20200901.zip SHA256
 			
 	In all cases, the checksum string returned by your command should match the checksum string above. Thanks to David Ranch, KI6ZHD, for his suggestion to add this step to the installation instructions.
 
@@ -150,16 +117,18 @@ __*PLEASE* DO THESE STEPS before seeking help!__
 
 1. Click __Yes__ if prompted to reboot.
 
-1. When the desktop appears, run the Updater: Click __Raspberry > Hamradio > Nexus Updater__, then, *only if prompted to do so*, re-run __Raspberry > Hamradio > Nexus Updater__.  Check __Raspbian OS and Apps__ and click __OK__.  Reboot if prompted.
+1. When the desktop appears, run the Updater: Click __Raspberry > Hamradio > Update Pi and Ham Software__, then, *only if prompted to do so*, re-run __Raspberry > Hamradio > Update Pi and Ham Software__.  Check __Raspbian OS and Apps__ and click __OK__.  Reboot if prompted.
 
-1. Click __Raspberry > Hamradio > Nexus Updater__ to run the Updater.  Check the application(s) you want to update or install and click __OK__.  Some installations take a very long time.  Don't install an application unless you understand what the application is for.  __*Installing an application does not configure it*__. Consult the documentation for that application for configuration instructions.
+1. Click __Raspberry > Hamradio > Update Pi and Ham Software__ to run the Updater.  Check the application(s) you want to update or install and click __OK__.  Some installations take a very long time.  Don't install an application unless you understand what the application is for.  __*Installing an application does not configure it*__. Consult the documentation for that application for configuration instructions.
 
 	You can double-click on the app name in the Updater to obtain information about that app.  This will open the Chromium browser and and take you to the website for that app.
 
 1. As you already know from the [First Time Boot Instructions](#first-time-boot-instructions), checking the __Raspbian OS and Apps__ item in the Updater will check for and install OS updates.  This is equivalent to running the following commands in a Terminal:
 
 		sudo apt update
-		sudo apt -y upgrade
+		sudo apt full-upgrade -y
+
+	I recommend checking for updates for __Raspbian OS and Apps__ about once a week.
 
 ## Customize the Main Menu
 
@@ -169,7 +138,7 @@ __WARNING:__ There is a long time bug in the Main Menu Editor that resets the me
 
 Also, be aware that if a menu, like the __Hamradio__ menu, has too many enabled items in it such that the menu grows beyond the vertical dimensions of the screen, those items at the end of the list won't appear in the menu.
 
-FYI: If you make changes (other than it's placement/order in the menu) to a particular menu item, a new desktop file will be created in `/home/pi/.local/share/applications` and that file will be used to populate the menu even if there is a `.desktop` file with the same name in the default location `/usr/local/share/applications`. 
+FYI: If you make changes (other than it's placement in the menu) to a particular menu item, a new desktop file will be created in `/home/pi/.local/share/applications` and that file will be used to populate the menu even if there is a `.desktop` file with the same name in the default location `/usr/local/share/applications`. 
 
 1. Click __Raspberry > Preferences > Main Menu Editor__.  
 
@@ -184,13 +153,27 @@ If you delete a `*.desktop` file from `/home/pi/.local/share/applications` or `/
 
 ### Customize the Fldigi Apps
 
-As I mentioned earlier, for those of you who were running an earlier Nexus DR-X image, you can restore your backed-up home folder from the previous image and not have to set up Fldigi, etc. as described here.
-
 1. In Fldgi: __Configure > UI > Operator__.  Note you have to do this for both the __Fldigi (Left Radio)__ *and* __Fldigi (Right Radio)__ menu items.
 
 1. In Flmsg: __Config > Personal__ tab.  Note that you have to do this for both the __Flmsg (Left Radio)__ *and* __Flmsg (Right Radio)__ menu items.
 
-1. See the [Nexus Audio](https://github.com/AG7GN/nexus-audio/blob/main/README.md) documentation about how Fldigi uses PulseAudio and the Fe-Pi, as well as information on how to set up audio alerts. Recent versions of Fldigi have changed the way aduio levels are depicted in the waterfall and signal displays sometimes making input audio appear too high when that may not be the case. 
+>### (*NO LONGER APPLICABLE*) Out of Memory Problem when Building Fldigi 
+>
+>The Nexus DR-X Pi Image is based on Debian Buster.  Earlier versions were based on Debian Stretch.  I have experienced an out of memory problem with older Stretch OS Raspberry Pis when building newer (4.1.x and later) versions of Fldigi.  You may see `virtual memory exhausted: Cannot allocate memory` errors or the Pi might just lock up or reboot.  If you encounter this problem, here's the fix:
+>
+>1. As root (sudo), edit the `/etc/dphys-swapfile` file.
+>1. Change this line:
+>
+>			CONF_SWAPSIZE=100
+>
+>	to:
+>
+>			CONF_SWAPSIZE=1024
+>1. Save the file.
+>1. Restart the swapfile service:
+>
+>			sudo systemctl restart dphys-swapfile
+>1. Re-do the build. Probably a good idea to do `make clean` first.
 
 ## Direwolf Notes
 
@@ -202,7 +185,7 @@ There's also a Direwolf APRS GUI at __Raspberry > Hamradio > Direwolf APRS GUI__
 
 This is __OPTIONAL__.  See [these instructions](https://github.com/AG7GN/images/blob/master/README-Using_VNC_to_Operate_Remotely.md).
 
-## [OPTIONAL and ADVANCED] Backing up your Pi via Secure Shell (SSH) over the network
+## Backing up your Pi via Secure Shell (SSH) over the network
 
 If you have another Linux host, you can use the `ssh-image.sh` script in this repository to make an image of a running Raspberry Pi using an SSH connection.  You'll need the following for this to work:
 
@@ -217,15 +200,23 @@ See the description at the beginning of the `ssh-image.sh` script for details.
 
 Probably.  WATCH THIS SPACE.  I will post bug information and workarounds here.
 
+### Fldigi Audio Alerts
+
+The current version of Fldigi prevents a second instance of Fldigi from running if both instances have Alert sounds enabled and are set to use the same audio alert sound card.  This is under investigation by the Fldigi developer.  
+
 ## Annoyances
 
 Things that aren't really bugs, but irritating nevertheless will be documented here.
 
+### Settings not retained after upgrading WSJT-X
+
+I've not been able to replicate this problem.
+
 ## Related Information
 
-[Nexus DR-X + PulseAudio: Adjusting Audio Levels](https://github.com/AG7GN/nexus-audio/blob/main/README.md)
+[Adjusting Audio Levels](https://github.com/AG7GN/images/blob/master/README-adjust_audio_levels.md)
 
-[Configuring and Using Auto-HotSpot](https://github.com/AG7GN/images/blob/master/README-auto_hotspot.md)
+[Configuring and Using Auto-HotSpot on Hampi](https://github.com/AG7GN/images/blob/master/README-auto_hotspot.md)
 
-[Operating Your Nexus "Headless"](https://github.com/AG7GN/images/blob/master/README-Using_VNC_to_Operate_Remotely.md)
+[Operating Your Hampi "Headless"](https://github.com/AG7GN/images/blob/master/README-Using_VNC_to_Operate_Remotely.md)
 
