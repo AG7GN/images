@@ -1,6 +1,6 @@
 # Nexus DR-X Pi Image
 
-Version 20201212.0
+Version 20201212.1
 
 Author: Steve Magnuson, AG7GN
 
@@ -99,7 +99,9 @@ These commands can also be used in scripts and in certain ham radio applications
 
 ## Installation
 
-- __*Attention Current Nexus Users:*__ If you're already running an earlier version of the Nexus image, you can save the contents of your home folder on that image to a USB stick/drive. Once you're running this new image, restore the contents of your home folder from your USB stick/drive to the new image. See __Raspberry > Hamradio > Backup/Restore Home Folder__ for information. This allows you to have your Fldigi setup, macros, etc, and other ham apps configuration on your new image without having to configure everything again.
+__*Attention Current Nexus Users:*__ If you're already running an earlier version of the Nexus image, you can save the contents of your home folder on that image to a USB stick/drive. Once you're running this new image, install the __nexus-backup-restore__ script using the Updater (__Raspberry > Hamradio > Nexus Updater__). Then run the script:
+__Raspberry > Hamradio > Backup/Restore Home Folder__
+and follow the instructions to restore the contents of your home folder from your USB stick/drive to the new image. This allows you to have your Fldigi setup, macros, etc, and other ham apps configuration on your new image without having to configure everything again.
 
 1. Assemble the DigiLink or [Nexus DR-X](http://wb7fhc.com/intro.html) board and install it and the Fe-Pi audio board onto the Pi.
 1. The Nexus DR-X Pi image is larger than the allowed file size on GitHub, so I store the image on a Google Drive.  The Nexus DR-X Pi image is approximately 3.2 GB.  
@@ -160,6 +162,8 @@ __*PLEASE* DO THESE STEPS before seeking help!__
 
 		sudo apt update
 		sudo apt -y upgrade
+		
+1. Check the __Bugs__ and __Annoyances__ sections below for additional information.
 
 ## Customize the Main Menu
 
@@ -220,6 +224,21 @@ Probably.  WATCH THIS SPACE.  I will post bug information and workarounds here.
 ## Annoyances
 
 Things that aren't really bugs, but irritating nevertheless will be documented here.
+
+### Fe-Pi Line Out initially muted
+
+Most users are seeing that on first boot the Line Out of the Fe-Pi is muted. Here's how to fix:
+
+- Open Terminal and run:
+	
+		alsamixer
+		
+- Press __F6__ and select the __Fe-Pi__ card.
+
+- Use your arrow keys to move to the __Lineout__ control. If it says __MM__ as shown in this screenshot, it's muted. Press __M__ to unmute, then __Esc__ to exit `alsamixer`.
+
+	![Fe-Pi Line Out initially muted](img/fe-pi-muted.png)
+	
 
 ## Related Information
 
