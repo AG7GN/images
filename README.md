@@ -1,6 +1,6 @@
 # Nexus DR-X Pi Image
 
-Version 20201212.1
+Version 20201212.2
 
 Author: Steve Magnuson, AG7GN
 
@@ -8,8 +8,8 @@ Author: Steve Magnuson, AG7GN
 
 - Raspberry Pi 3B, 3B+ or 4B.  The 2GB version of the 4B is fine.
 - [Fe-Pi Audio Z Version 2 sound card](https://fe-pi.com/products/fe-pi-audio-z-v2)
-- Budd Churchward's ([WB7FHC](http://wb7fhc.com/index.html)) excellent DigiLink (REV C or later) or [Nexus DR-X](http://wb7fhc.com/intro.html) board
-- 16GB or greater MicroSD card ([a 32GB card is best](https://raspberryinsider.com/what-the-largest-micro-sd-card-supported-the-by-raspberry-pi/)). I've found that the [SanDisk 32GB Extreme PLUS microSDHC](https://www.officedepot.com/a/products/225929/SanDisk-Extreme-PLUS-microSDHC-Memory-Card/) is very fast and reliable.
+- Budd Churchward's ([WB7FHC](http://wb7fhc.com/index.html)) excellent [Nexus DR-X](http://wb7fhc.com/intro.html) board. The DigiLink is no longer made.
+- 16GB or greater MicroSD card ([a 32GB or larger card is best](https://raspberryinsider.com/what-the-largest-micro-sd-card-supported-the-by-raspberry-pi/)). I've found that the [SanDisk 32GB Extreme PLUS microSDHC](https://www.officedepot.com/a/products/225929/SanDisk-Extreme-PLUS-microSDHC-Memory-Card/) is very fast and reliable. Samsung and SanDisk are among the most reliable cards.
 - OPTIONAL: Speakers attached to Pi's built-in audio jack or an HDMI monitor with speakers if you want to monitor the radio's TX and/or RX or use Fldigi's audio alerts feature
 
 This image uses the default configuration for user __pi__:  
@@ -66,44 +66,13 @@ The default password for user __pi__ is __changeme__.  __*PLEASE CHANGE THIS* as
 
 	This will tell PulseAudio to use the Fe-Pi card for the sound for this application.
 	
-## GPIO Pins
-
-The Nexus DR-X Pi image and the Nexus DR-X board use the following GPIO pins (BCM numbering):
-
-| GPIO Pin (BCM) | Purpose |
-| :---: | :---: |
-| 12 | PTT Left Radio |
-| 23 | PTT Right Radio |
-| 26 | Shutdown Button |
-| 24 | Shutdown Button LED |
-| 25 | Piano switch position 1 |
-| 13 | Piano switch position 2 |
-| 6 | Piano switch position 3 |
-| 5 | Piano switch position 4 |
-
-You can test PTT operation using `raspi-gpio` in the Terminal. For example, here's how to test PTT on the left radio (GPIO BCM pin 12):
-
-- Set BCM pin 12 as output:
-
-		raspi-gpio set 12 op
-		
-- Set BCM pin 12 state to high (PTT ON):
-
-		raspi-gpio set 12 dh
-
-- Set BCM pin 12 state to low (PTT OFF):
-
-		raspi-gpio set 12 dl
-
-These commands can also be used in scripts and in certain ham radio applications that allow scripting to control PTT.
-
 ## Installation
 
 __*Attention Current Nexus Users:*__ If you're already running an earlier version of the Nexus image, you can save the contents of your home folder on that image to a USB stick/drive. Once you're running this new image, install the __nexus-backup-restore__ script using the Updater (__Raspberry > Hamradio > Nexus Updater__). Then run the script:
 __Raspberry > Hamradio > Backup/Restore Home Folder__
 and follow the instructions to restore the contents of your home folder from your USB stick/drive to the new image. This allows you to have your Fldigi setup, macros, etc, and other ham apps configuration on your new image without having to configure everything again.
 
-1. Assemble the DigiLink or [Nexus DR-X](http://wb7fhc.com/intro.html) board and install it and the Fe-Pi audio board onto the Pi.
+1. Assemble [Nexus DR-X](http://wb7fhc.com/intro.html) board and install it and the Fe-Pi audio board onto the Pi.
 1. The Nexus DR-X Pi image is larger than the allowed file size on GitHub, so I store the image on a Google Drive.  The Nexus DR-X Pi image is approximately 3.2 GB.  
 	- [Access my Google Drive](https://drive.google.com/file/d/1gLUDK7K5ZHgNC5dPZbX27F-Rvef14tAK/view?usp=sharing) 
 	- Click the __Download__ button when prompted with "Couldn't preview file...".
@@ -115,6 +84,8 @@ and follow the instructions to restore the contents of your home folder from you
 	
 			shasum -a 256 nexusdrxpi20201212.zip
 		
+		Your Mac may auto-unzip the ZIP file (making a `.img` file) upon downloading, but the original ZIP file should be in your downloads folder.
+				
 	- If you downloaded the above ZIP file to a Linux PC, run this command in Terminal in the folder where you downloaded the file:
 	
 			sha256sum nexusdrxpi20201212.zip
@@ -125,8 +96,11 @@ and follow the instructions to restore the contents of your home folder from you
 			
 	In all cases, the checksum string returned by your command should match the checksum string above. Thanks to David Ranch, KI6ZHD, for his suggestion to add this step to the installation instructions.
 
-1. Burn the image to your SD card by following these ["Writing an image to the SD card"](https://www.raspberrypi.org/documentation/installation/installing-images/)  instructions.  Since you've already downloaded the image in the previous step, ignore the "Download the image" section on that web page.
-1. Insert the MicroSD card into the Pi and power it on.
+1. Burn the image to your SD card. There are many ways to do this. The easiest is to download the [Balena Etcher](https://www.balena.io/etcher/) app for your OS (supports Linux, Windows, Mac). The Balena Etcher is easy to use and you don't have to unzip ZIP or `.tar.gz` files containing images prior to burning them to the microSD card.
+
+	Alternatively, the official "Raspbian" way to burn the image is to use the [Raspberry Pi Imager](https://www.raspberrypi.org/software/). 
+
+1. Insert the microSD card you just imaged into the Pi and power it on.
 1. The easiest way to get your Pi set up on first boot-up is to connect it to a keyboard/video/mouse (KVM).  However, there is an alternative way to access your new Pi without a KVM, even before you've configured it:  
 
 	- By default, the [VNC server](https://github.com/AG7GN/images/blob/master/README-Using_VNC_to_Operate_Remotely.md) is enabled on the Pi.  If you plug your Pi into an ethernet port on your home network and [install the VNC Viewer application](https://www.realvnc.com/en/connect/download/viewer/) on another PC or Mac or Chromebook also on your home network, you can connect to and control your new Pi using VNC Viewer from that PC or Mac or Chromebook.  
@@ -184,6 +158,37 @@ FYI: If you make changes (other than it's placement/order in the menu) to a part
 
 If you delete a `*.desktop` file from `/home/pi/.local/share/applications` or `/usr/local/share/applications`, it won't appear as an available selection in the Main Menu Editor. Simply unchecking an item in the editor does not delete the `*.desktop` file.
 
+## GPIO Pins
+
+The Nexus DR-X Pi image and the Nexus DR-X board use the following GPIO pins (BCM numbering):
+
+| GPIO Pin (BCM) | Purpose |
+| :---: | :---: |
+| 12 | PTT Left Radio |
+| 23 | PTT Right Radio |
+| 26 | Shutdown Button |
+| 24 | Shutdown Button LED |
+| 25 | Piano switch position 1 |
+| 13 | Piano switch position 2 |
+| 6 | Piano switch position 3 |
+| 5 | Piano switch position 4 |
+
+You can test PTT operation using `raspi-gpio` in the Terminal. For example, here's how to test PTT on the left radio (GPIO BCM pin 12):
+
+- Set BCM pin 12 as output:
+
+		raspi-gpio set 12 op
+		
+- Set BCM pin 12 state to high (PTT ON):
+
+		raspi-gpio set 12 dh
+
+- Set BCM pin 12 state to low (PTT OFF):
+
+		raspi-gpio set 12 dl
+
+These commands can also be used in scripts and in certain ham radio applications that allow scripting to control PTT.
+
 ## Fldigi Notes
 
 ### Customize the Fldigi Apps
@@ -196,6 +201,10 @@ As I mentioned earlier, for those of you who were running an earlier Nexus DR-X 
 
 1. See the [Nexus Audio](https://github.com/AG7GN/nexus-audio/blob/main/README.md) documentation about how Fldigi uses PulseAudio and the Fe-Pi, as well as information on how to set up audio alerts. Recent versions of Fldigi have changed the way aduio levels are depicted in the waterfall and signal displays sometimes making input audio appear too high when that may not be the case. 
 
+### FSQ on Fldigi
+
+See [KC9AD's notes on using FSQ](http://doutre.org/fsqNotes.txt).
+
 ## Direwolf Notes
 
 If you want to use Direwolf as an AX25 TNC with or without the pat Winlink client, you can run __Raspberry > Hamradio > Direwolf TNC and pat GUI__. This application will allow you to configure Direwolf and pat using a GUI rather than editing text files. You can also monitor Direwolf and pat events. 
@@ -206,7 +215,7 @@ There's also a Direwolf APRS GUI at __Raspberry > Hamradio > Direwolf APRS GUI__
 
 This is __OPTIONAL__.  See [these instructions](https://github.com/AG7GN/images/blob/master/README-Using_VNC_to_Operate_Remotely.md).
 
-## [OPTIONAL and ADVANCED] Backing up your Pi via Secure Shell (SSH) over the network
+## [OPTIONAL and ADVANCED] Backing up your Pi via Secure Shell (SSH) over a network
 
 If you have another Linux host, you can use the `ssh-image.sh` script in this repository to make an image of a running Raspberry Pi using an SSH connection.  You'll need the following for this to work:
 
