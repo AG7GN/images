@@ -1,8 +1,12 @@
 # Notes on Customizing Direwolf
 
-Version 20201220
+Version 20201220.1
 
 Some hams want to operate Direwolf in ways that the GUIs in the Nexus image won't accommodate. These notes are for you.
+
+## Get the latest sample files
+
+1. Run __Raspberry > Hamradio > Nexus Updater__ and update __nexus-utilities__.
 
 ## Prepare Raspbian Window Manager
 
