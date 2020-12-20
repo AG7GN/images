@@ -68,8 +68,7 @@ The default password for user __pi__ is __changeme__.  __*PLEASE CHANGE THIS* as
 	
 ## Installation
 
-__*Attention Current Nexus Users:*__ If you're already running an earlier version of the Nexus image, you can save the contents of your home folder on that image to a USB stick/drive. Once you're running this new image, install the __nexus-backup-restore__ script using the Updater (__Raspberry > Hamradio > Nexus Updater__). Then run the script:
-__Raspberry > Hamradio > Backup/Restore Home Folder__
+__*Attention Current Nexus Users:*__ If you're already running an earlier version of the Nexus image, you have a tool available that allows you to back up the contents of your home folder to a USB stick/drive. It's located at __Raspberry > Hamradio > Backup/Restore Home Folder__. Use it to make a copy of your home folder prior to following the rest of this procedure. Then, once you're running the new image, install the __nexus-backup-restore__ script using the Updater (__Raspberry > Hamradio > Nexus Updater__) and run __Raspberry > Hamradio > Backup/Restore Home Folder__
 and follow the instructions to restore the contents of your home folder from your USB stick/drive to the new image. This allows you to have your Fldigi setup, macros, etc, and other ham apps configuration on your new image without having to configure everything again.
 
 1. Assemble [Nexus DR-X](http://wb7fhc.com/intro.html) board and install it and the Fe-Pi audio board onto the Pi.
@@ -211,6 +210,8 @@ If you want to use Direwolf as an AX25 TNC with or without the pat Winlink clien
 
 There's also a Direwolf APRS GUI at __Raspberry > Hamradio > Direwolf APRS GUI__. You can configure your Pi to be an APRS iGate and/or digipeater and optionally have it start automatically at boot up via the Nexus piano switches.
 
+Some hams will want to use Direwolf in a way that these GUIs won't accomodate. [Please read these notes](https://github.com/AG7GN/images/blob/master/README-direwolf.md) if this applies to you.
+
 ## Operating Your Pi "Headless" (without a keyboard, monitor or mouse)
 
 This is __OPTIONAL__.  See [these instructions](https://github.com/AG7GN/images/blob/master/README-Using_VNC_to_Operate_Remotely.md).
@@ -256,4 +257,6 @@ Most users are seeing that on first boot the Line Out of the Fe-Pi is muted. Her
 [Configuring and Using Auto-HotSpot](https://github.com/AG7GN/images/blob/master/README-auto_hotspot.md)
 
 [Operating Your Nexus "Headless"](https://github.com/AG7GN/images/blob/master/README-Using_VNC_to_Operate_Remotely.md)
+
+[Direwolf Notes](https://github.com/AG7GN/images/blob/master/README-direwolf.md)
 
