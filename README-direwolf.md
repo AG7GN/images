@@ -1,5 +1,7 @@
 # Notes on Customizing Direwolf
 
+Version 20201220
+
 Some hams want to operate Direwolf in ways that the GUIs in the Nexus image won't accommodate. These notes are for you.
 
 ## Prepare Raspbian Window Manager
