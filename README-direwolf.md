@@ -64,8 +64,13 @@ Some hams want to operate Direwolf in ways that the GUIs in the Nexus image won'
 	
 		`Comment` is the tooltip that will appear when you hover your mouse over the entry in the Hamradio menu.
 	
-		`Exec` is what will actually execute when you click in the item in the Hamradio menu. 
+		`Exec` is what will actually execute when you click on the item in the Hamradio menu. 
 		- The `-t "My Custom Direwolf"` is an `lxterminal` argument that sets what will appear in the top of the direwolf screen. Change as desired.
+		
+		- If you want to adjust the size of the window in which direwolf runs, specify the number of characters (columns) and lines (rows) with the `--geometry` option. If you want to use this, insert it just after `lxterminal` as in this example wehre we specify 90 characters wide and 30 lines high:
+				
+				Exec=lxterminal --geometry=90x30 -t "My Custom Direwolf" -e "direwolf -c $HOME/mydirewolf.conf"
+				
 		- The `-e "direwolf -c $HOME/mydirewolf.conf"` is how direwolf will be run. 
 			
 			If you want to add direwolf arguments, insert them after `direwolf` and before `-c`. 
