@@ -1,6 +1,6 @@
 # Nexus DR-X Pi Image
 
-Version 20201212.2
+Version 20201212.3
 
 Author: Steve Magnuson, AG7GN
 
@@ -245,7 +245,7 @@ Most users are seeing that on first boot the Line Out of the Fe-Pi is muted. Her
 		
 - Press __F6__ and select the __Fe-Pi__ card.
 
-- Use your arrow keys to move to the __Lineout__ control. If it says __MM__ as shown in this screenshot, it's muted. Press __M__ to unmute, then __Esc__ to exit `alsamixer`.
+- Use your left/right arrow keys to move to the __Lineout__ control. If it says __MM__ as shown in this screenshot, it's muted. Press __M__ to unmute, then __Esc__ to exit `alsamixer`.
 
 	![Fe-Pi Line Out initially muted](img/fe-pi-muted.png)
 	
