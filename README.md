@@ -1,6 +1,6 @@
 # Nexus DR-X Pi Image
 
-Version 20201212.3
+Version 20201212.4
 
 Author: Steve Magnuson, AG7GN
 
@@ -64,7 +64,7 @@ The default password for user __pi__ is __changeme__.  __*PLEASE CHANGE THIS* as
 	
 		PULSE_SINK=fepi-playback PULSE_SOURCE=fepi-capture name-of-application [arguments]
 
-	This will tell PulseAudio to use the Fe-Pi card for the sound for this application.
+	This will tell PulseAudio to use the Fe-Pi card for the sound for this application. The Fldigi suite of programs that you start via the Hamradio menu are already configured to do this.
 	
 ## Installation
 
@@ -72,9 +72,10 @@ __*Attention Current Nexus Users:*__ If you're already running an earlier versio
 and follow the instructions to restore the contents of your home folder from your USB stick/drive to the new image. This allows you to have your Fldigi setup, macros, etc, and other ham apps configuration on your new image without having to configure everything again.
 
 1. Assemble [Nexus DR-X](http://wb7fhc.com/intro.html) board and install it and the Fe-Pi audio board onto the Pi.
-1. The Nexus DR-X Pi image is larger than the allowed file size on GitHub, so I store the image on a Google Drive.  The Nexus DR-X Pi image is approximately 3.2 GB.  
-	- [Access my Google Drive](https://drive.google.com/file/d/1gLUDK7K5ZHgNC5dPZbX27F-Rvef14tAK/view?usp=sharing) 
-	- Click the __Download__ button when prompted with "Couldn't preview file...".
+1. The Nexus DR-X Pi image is larger than the allowed file size on GitHub, so it's stored on Budd's (WB7FHC) website. When you click on the following link, you might see no activity in your browser for several seconds to a minute before it starts downloading or prompts you for permission to download. 
+
+	[Download the Nexus DR-X Image](https://wb7fhc.com/nexusdrxpi20201212.zip)
+	  
 1. [OPTIONAL] After you've downloaded the ZIP file, verify it's integrity by running a checksum calculator program. This will tell you that you've downloaded the image that I uploaded. The SHA256 checksum for the above image is:
 
 		f56acaa11a456f20a7151cbe9d74bfcf34a9737b602651ec67fd98003953932f
@@ -96,6 +97,8 @@ and follow the instructions to restore the contents of your home folder from you
 	In all cases, the checksum string returned by your command should match the checksum string above. Thanks to David Ranch, KI6ZHD, for his suggestion to add this step to the installation instructions.
 
 1. Burn the image to your SD card. There are many ways to do this. The easiest is to download the [Balena Etcher](https://www.balena.io/etcher/) app for your OS (supports Linux, Windows, Mac). The Balena Etcher is easy to use and you don't have to unzip ZIP or `.tar.gz` files containing images prior to burning them to the microSD card.
+
+	__TIP:__ I'm told by Balena Etcher on Windows users that if you wait until AFTER you've selected the image to burn in Etcher to insert the microSD card into your PC, that Etcher will automatically select the microSD card as the destination. I have not tested this.
 
 	Alternatively, the official "Raspbian" way to burn the image is to use the [Raspberry Pi Imager](https://www.raspberrypi.org/software/). 
 
